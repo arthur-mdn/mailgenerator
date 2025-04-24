@@ -68,29 +68,31 @@ function App() {
         </td>
     </tr>
 
-    <tr>
+    <tr style="vertical-align: bottom;">
         <td>
-            <table cellpadding="0" cellspacing="0" style="font-family: Arial, sans-serif; font-size: 14px; padding: 15px; color: #000;background-color:#006633; width: 100%; border-radius: 10px">
+            <table cellpadding="0" cellspacing="0" style="font-family: Arial, sans-serif; font-size: 14px; padding: 15px; color: #000;background-color:#006633; width: 100%; height:100%;border-radius: 10px">
                 <tr style="vertical-align: middle">
                     <td style="text-align: left;">
-                         <img src=${icons.edissyum} style="width:200px;height:32px;padding-left: 15px" alt="edissyum">
+                        <a href="https://edissyum.com/" target="_blank">
+                            <img src=${icons.edissyum} style="width:200px;height:32px;padding-left: 15px; vertical-align: middle" alt="edissyum">
+                        </a>
                     </td>
                     <td style="padding-left: 25px">
-                        <table>
+                        <table style="width: 100%;">
                             <tr>
                                 <td style="text-align: right;padding: 0">
-                                    <a href="https://edissyum.com/" target="_blank" style="color: #D2FBD0; text-decoration: none;font-size: 14px;line-height: 14px;font-family: Arial, sans-serif;">https://edissyum.com</a>
+                                    <a href="https://edissyum.com/" target="_blank" style="color: #D2FBD0; text-decoration: none;font-size: 14px;line-height: 14px;font-family: Arial, sans-serif;vertical-align: bottom;">https://edissyum.com</a>
                                 </td>
                             </tr>
                             <tr>
                                 <td style="text-align: right;padding: 0;">
-                                    <a href="https://open-capture.com/" target="_blank" style="color: #D2FBD0; text-decoration: none;font-size: 14px;line-height: 14px;font-family: Arial, sans-serif;">https://open-capture.com</a>
+                                    <a href="https://open-capture.com/" target="_blank" style="color: #D2FBD0; text-decoration: none;font-size: 14px;line-height: 14px;font-family: Arial, sans-serif;vertical-align: top">https://open-capture.com</a>
                                 </td>
                             </tr>
                         </table>
                     </td>
-                    <td style="padding-left: 25px;padding-top:8px; text-align: right;">
-                        <table style="width: 100%">
+                    <td style="padding-left: 15px; text-align: right; vertical-align: middle">
+                        <table style="width: 100%; vertical-align: middle">
                             <tr>
                                 <td style="text-align: right;">
                                     <a href="https://facebook.com/edissyum/" target="_blank" style="text-decoration: none;background-color: #00AE5E; width: 30px; height:30px;display: block;border-radius:4px;padding: 3px" title="Facebook">
