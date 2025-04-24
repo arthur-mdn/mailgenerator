@@ -1,119 +1,19 @@
-import { useRef } from 'react'
+import {useEffect, useRef, useState} from 'react'
 import './App.css'
 import { icons } from './assets/icons.js';
 
 function App() {
     const signatureRef = useRef(null);
 
-    const signatureHTML = `
-<table cellpadding="0" cellspacing="0" style="font-family: Arial, sans-serif; font-size: 14px; color: #fff;background-color:#00AE5E; border-radius:10px;width: 600px; height: 235px">
-    <tr>
-        <td>
-            <table cellpadding="0" cellspacing="0" style="width: 100%">
-                <tr>
-                    <td>
-                        <table cellpadding="0" cellspacing="0" style="color: #fff; width: 100%;">
-                            <tr>
-                                <td style="padding: 20px 0 0 25px;">
-                                    <h1 style="margin:0;font-family: Arial, sans-serif;text-align: left;font-size: 26px;">Arthur Mondon</h1>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="padding: 0 0 0 25px;">
-                                    <h3 style="font-weight: normal;margin:0;margin-top: 4px;font-family: Arial, sans-serif;text-align: left;font-size: 18px;">Pôle expertise et développement</h3>
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>
-                        <table cellpadding="0" cellspacing="0" style="width: 100%;margin-top:10px;text-align: center">
-                            <tr>
-                                <td style="padding: 0 0 0 25px;width: 25px">
-                                    <img src=${icons.phone} alt="Phone" style="width:22px; vertical-align: middle;" />
-                                </td>
-                                <td style="text-align: left;padding-top: 3px">
-                                    <a href="tel:+33490409186" style="color: white; text-decoration: none;text-align: left;font-family: Arial, sans-serif;">
-                                        + 33 4 90 65 65 86
-                                    </a>
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-                <tr>
-                    <td style="padding: 0 0 20px 0;">
-                        <table cellpadding="0" cellspacing="0" style="color: #fff;">
-                            <tr>
-                                <td style="padding: 0 0 0 25px; width: 25px">
-                                    <img src=${icons.tel} style="width:22px; vertical-align: middle;" alt="tel">
-                                </td>
-                                <td style="text-align: left;padding-top: 0;">
-                                    <a href="tel:+33490409186" style="color: white; text-decoration: none;font-family: Arial, sans-serif;">
-                                        + 33 6 78 91 01 12
-                                    </a>
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-            </table>
-        </td>
-    </tr>
-
-    <tr style="vertical-align: bottom;">
-        <td>
-            <table cellpadding="0" cellspacing="0" style="font-family: Arial, sans-serif; font-size: 14px; padding: 15px; color: #000;background-color:#006633; width: 100%; height:100%;border-radius: 10px">
-                <tr style="vertical-align: middle">
-                    <td style="text-align: left;">
-                        <a href="https://edissyum.com/" target="_blank">
-                            <img src=${icons.edissyum} style="width:200px;height:32px;padding-left: 15px; vertical-align: middle" alt="edissyum">
-                        </a>
-                    </td>
-                    <td style="padding-left: 25px">
-                        <table style="width: 100%;">
-                            <tr>
-                                <td style="text-align: right;padding: 0">
-                                    <a href="https://edissyum.com/" target="_blank" style="color: #D2FBD0; text-decoration: none;font-size: 14px;line-height: 14px;font-family: Arial, sans-serif;vertical-align: bottom;">https://edissyum.com</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="text-align: right;padding: 0;">
-                                    <a href="https://open-capture.com/" target="_blank" style="color: #D2FBD0; text-decoration: none;font-size: 14px;line-height: 14px;font-family: Arial, sans-serif;vertical-align: top">https://open-capture.com</a>
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                    <td style="padding-left: 15px; text-align: right; vertical-align: middle">
-                        <table style="width: 100%; vertical-align: middle">
-                            <tr>
-                                <td style="text-align: right;">
-                                    <a href="https://facebook.com/edissyum/" target="_blank" style="text-decoration: none;background-color: #00AE5E; width: 30px; height:30px;display: block;border-radius:4px;padding: 3px" title="Facebook">
-                                        <img src=${icons.facebook} style="width:30px" alt="facebook">
-                                    </a>
-                                </td>
-                                <td style="text-align: right">
-                                    <a href="https://linkedin.com/company/edissyum-consulting/" target="_blank" style="text-decoration: none;background-color: #00AE5E; width: 30px; height:30px;display: block;border-radius:4px;padding: 3px" title="LinkedIn">
-                                        <img src=${icons.linkedin} style="width:30px" alt="linkedin">
-                                    </a>
-                                </td>
-                                <td style="text-align: right">
-                                    <a href="https://youtube.com/channel/UCQh4DnAakzDXuMXtMK2BTpQ/" target="_blank" style="text-decoration: none;background-color: #00AE5E; width: 30px; height:30px;display: block;border-radius:4px;padding: 3px" title="YouTube">
-                                       <img src=${icons.youtube} style="width:30px" alt="youtube">
-                                    </a>
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-            </table>
-        </td>
-    </tr>
-</table>
-
-`;
+    const [width, setWidth] = useState(600);
+    const [height, setHeight] = useState(235);
+    const [showSocialNetworks, setShowSocialNetworks] = useState(false);
+    const [pseudo, setPseudo] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [firstName, setFirstName] = useState('');
+    const [role, setRole] = useState('');
+    const [phone, setPhone] = useState('');
+    const [mobile, setMobile] = useState('');
 
     const handleCopy = () => {
         const range = document.createRange();
@@ -133,15 +33,392 @@ function App() {
         selection.removeAllRanges();
     };
 
+    const updateWidth = () => {
+        if (showSocialNetworks) {
+            setWidth(600);
+        } else {
+            setWidth(450);
+        }
+    }
+
+    const updateHeight = () => {
+        if (mobile === '') {
+            setHeight(200);
+        } else {
+            setHeight(235);
+        }
+    }
+
+    useEffect(() => {
+
+        updateHeight();
+        updateWidth();
+    }, [showSocialNetworks, mobile]);
 
     return (
         <div style={{ padding: '2rem', fontFamily: 'Arial, sans-serif' }}>
             <h1>Signature Preview</h1>
 
-            <div
-                ref={signatureRef}
-                dangerouslySetInnerHTML={{ __html: signatureHTML }}
-            >
+            <form>
+                <label>
+                    Afficher les réseaux sociaux
+                    <input
+                        type="checkbox"
+                        checked={showSocialNetworks}
+                        onChange={() => setShowSocialNetworks(!showSocialNetworks)}
+                    />
+                </label>
+                <br/>
+
+                <label>
+                    Pseudo
+                    <input
+                        type="text"
+                        required
+                        value={pseudo}
+                        onChange={(e) => setPseudo(e.target.value)}
+                        placeholder="amo01"
+                        style={{marginLeft: '10px', marginBottom: '10px'}}
+                        maxLength={20}
+                    />
+                </label>
+                <br/>
+                <label>
+                    Prénom
+                    <input
+                        type="text"
+                        required
+                        value={firstName}
+                        onChange={(e) => setFirstName(e.target.value)}
+                        placeholder="Arthur"
+                        style={{marginLeft: '10px', marginBottom: '10px'}}
+                        maxLength={20}
+                    />
+                </label>
+                <br/>
+                <label>
+                    Nom
+                    <input
+                        type="text"
+                        required
+                        value={lastName}
+                        onChange={(e) => setLastName(e.target.value)}
+                        placeholder="Mondon"
+                        style={{marginLeft: '10px', marginBottom: '10px'}}
+                        maxLength={20}
+                    />
+                </label>
+                <br/>
+                <label>
+                    Fonction
+                    <input
+                        type="text"
+                        required
+                        value={role}
+                        onChange={(e) => setRole(e.target.value)}
+                        placeholder="Pôle expertise et développement"
+                        style={{marginLeft: '10px', marginBottom: '10px'}}
+                        maxLength={45}
+                    />
+                </label>
+                <br/>
+                <label>
+                    Téléphone
+                    <input
+                        type="tel"
+                        required
+                        value={phone}
+                        onChange={(e) => setPhone(e.target.value)}
+                        placeholder="+33 4 90 65 65 86"
+                        style={{marginLeft: '10px', marginBottom: '10px'}}
+                        maxLength={20}
+                    />
+                </label>
+                <br/>
+                <label>
+                    Mobile
+                    <input
+                        type="tel"
+                        required
+                        value={mobile}
+                        onChange={(e) => setMobile(e.target.value)}
+                        placeholder="+33 6 78 91 01 12"
+                        style={{marginLeft: '10px', marginBottom: '10px'}}
+                        maxLength={20}
+                    />
+                </label>
+            </form>
+
+            <div ref={signatureRef}>
+                <table
+                    cellPadding="0"
+                    cellSpacing="0"
+                    style={{
+                        fontFamily: 'Arial, sans-serif',
+                        fontSize: 14,
+                        color: '#fff',
+                        backgroundColor: '#00AE5E',
+                        borderRadius: 10,
+                        width: width,
+                        height: height,
+                    }}
+                >
+                    <tbody>
+                    <tr>
+                        <td>
+                            <table cellPadding="0" cellSpacing="0" style={{ width: '100%' }}>
+                                <tbody>
+                                <tr>
+                                    <td>
+                                        <table cellPadding="0" cellSpacing="0" style={{ color: '#fff', width: '100%' }}>
+                                            <tbody>
+                                            <tr>
+                                                <td style={{ padding: '20px 0 0 25px' }}>
+                                                    <h1
+                                                        style={{
+                                                            margin: 0,
+                                                            fontFamily: 'Arial, sans-serif',
+                                                            textAlign: 'left',
+                                                            fontSize: 26,
+                                                        }}
+                                                    >
+                                                        {firstName && firstName !== '' ? firstName : 'Arthur'}
+                                                        {' '}
+                                                        {lastName && lastName !== '' ? ' ' + lastName : 'Mondon'}
+                                                    </h1>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style={{ padding: '0 0 0 25px' }}>
+                                                    <h3
+                                                        style={{
+                                                            fontWeight: 'normal',
+                                                            margin: 0,
+                                                            marginTop: 4,
+                                                            fontFamily: 'Arial, sans-serif',
+                                                            textAlign: 'left',
+                                                            fontSize: 18,
+                                                        }}
+                                                    >
+                                                        {role && role !== '' ? role : 'Pôle expertise et développement'}
+                                                    </h3>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+
+                                    <td style={(mobile === '') ? {padding: '0 0 20px 0'} : {}}>
+                                        <table
+                                            cellPadding="0"
+                                            cellSpacing="0"
+                                            style={{width: '100%', marginTop: 10, textAlign: 'center'}}
+                                        >
+                                            <tbody>
+                                            <tr>
+                                                <td style={{padding: '0 0 0 25px', width: 25}}>
+                                                    <img
+                                                        src={icons.phone}
+                                                        alt="Phone"
+                                                        style={{width: 22, verticalAlign: 'middle'}}
+                                                    />
+                                                </td>
+                                                <td style={{textAlign: 'left', paddingTop: 3}}>
+                                                    <a
+                                                        href="tel:+33490409186"
+                                                        style={{
+                                                            color: 'white',
+                                                            textDecoration: 'none',
+                                                            textAlign: 'left',
+                                                            fontFamily: 'Arial, sans-serif',
+                                                        }}
+                                                    >
+                                                        {phone && phone !== '' ? phone : '+33 4 90 65 65 86'}
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                                {(mobile && mobile !== '') && (
+                                    <tr>
+                                        <td style={{padding: '0 0 20px 0'}}>
+                                            <table cellPadding="0" cellSpacing="0" style={{color: '#fff'}}>
+                                                <tbody>
+                                                <tr>
+                                                    <td style={{padding: '0 0 0 25px', width: 25}}>
+                                                        <img
+                                                            src={icons.tel}
+                                                            style={{width: 22, verticalAlign: 'middle'}}
+                                                            alt="tel"
+                                                        />
+                                                    </td>
+                                                    <td style={{textAlign: 'left', paddingTop: 0}}>
+                                                        <a
+                                                            href="tel:+33490409186"
+                                                            style={{
+                                                                color: 'white',
+                                                                textDecoration: 'none',
+                                                                fontFamily: 'Arial, sans-serif',
+                                                            }}
+                                                        >
+                                                            {mobile}
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                )}
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+
+                    <tr style={{verticalAlign: 'bottom'}}>
+                        <td>
+                            <table
+                                cellPadding="0"
+                                cellSpacing="0"
+                                style={{
+                                    fontFamily: 'Arial, sans-serif',
+                                    fontSize: 14,
+                                    padding: 15,
+                                    color: '#000',
+                                    backgroundColor: '#006633',
+                                    width: '100%',
+                                    height: '100%',
+                                    borderRadius: 10,
+                                }}
+                            >
+                                <tbody>
+                                <tr style={{verticalAlign: 'middle'}}>
+                                    <td style={{textAlign: 'left'}}>
+                                        <a href="https://edissyum.com/" target="_blank">
+                                            <img
+                                                src={icons.edissyum}
+                                                style={{width: 200, height: 32, paddingLeft: 15, verticalAlign: 'middle'}}
+                                                alt="edissyum"
+                                            />
+                                        </a>
+                                    </td>
+                                    <td style={{paddingLeft: 25}}>
+                                        <table style={(!showSocialNetworks) ? {paddingRight: '10px',width: '100%'} : {width: '100%'}}>
+                                            <tbody>
+                                            <tr>
+                                                <td style={{ textAlign: 'right', padding: 0 }}>
+                                                    <a
+                                                        href="https://edissyum.com/"
+                                                        target="_blank"
+                                                        style={{
+                                                            color: '#D2FBD0',
+                                                            textDecoration: 'none',
+                                                            fontSize: 14,
+                                                            lineHeight: '14px',
+                                                            fontFamily: 'Arial, sans-serif',
+                                                            verticalAlign: 'bottom',
+                                                        }}
+                                                    >
+                                                        https://edissyum.com
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style={{ textAlign: 'right', padding: 0 }}>
+                                                    <a
+                                                        href="https://open-capture.com/"
+                                                        target="_blank"
+                                                        style={{
+                                                            color: '#D2FBD0',
+                                                            textDecoration: 'none',
+                                                            fontSize: 14,
+                                                            lineHeight: '14px',
+                                                            fontFamily: 'Arial, sans-serif',
+                                                            verticalAlign: 'top',
+                                                        }}
+                                                    >
+                                                        https://open-capture.com
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                    {showSocialNetworks && (
+                                        <td style={{ paddingLeft: 15, textAlign: 'right', verticalAlign: 'middle' }}>
+                                            <table style={{ width: '100%', verticalAlign: 'middle' }}>
+                                                <tbody>
+                                                <tr>
+                                                    <td style={{ textAlign: 'right' }}>
+                                                        <a
+                                                            href="https://facebook.com/edissyum/"
+                                                            target="_blank"
+                                                            style={{
+                                                                textDecoration: 'none',
+                                                                backgroundColor: '#00AE5E',
+                                                                width: 30,
+                                                                height: 30,
+                                                                display: 'block',
+                                                                borderRadius: 4,
+                                                                padding: 3,
+                                                            }}
+                                                            title="Facebook"
+                                                        >
+                                                            <img src={icons.facebook} style={{ width: 30 }} alt="facebook" />
+                                                        </a>
+                                                    </td>
+                                                    <td style={{ textAlign: 'right' }}>
+                                                        <a
+                                                            href="https://linkedin.com/company/edissyum-consulting/"
+                                                            target="_blank"
+                                                            style={{
+                                                                textDecoration: 'none',
+                                                                backgroundColor: '#00AE5E',
+                                                                width: 30,
+                                                                height: 30,
+                                                                display: 'block',
+                                                                borderRadius: 4,
+                                                                padding: 3,
+                                                            }}
+                                                            title="LinkedIn"
+                                                        >
+                                                            <img src={icons.linkedin} style={{ width: 30 }} alt="linkedin" />
+                                                        </a>
+                                                    </td>
+                                                    <td style={{ textAlign: 'right' }}>
+                                                        <a
+                                                            href="https://youtube.com/channel/UCQh4DnAakzDXuMXtMK2BTpQ/"
+                                                            target="_blank"
+                                                            style={{
+                                                                textDecoration: 'none',
+                                                                backgroundColor: '#00AE5E',
+                                                                width: 30,
+                                                                height: 30,
+                                                                display: 'block',
+                                                                borderRadius: 4,
+                                                                padding: 3,
+                                                            }}
+                                                            title="YouTube"
+                                                        >
+                                                            <img src={icons.youtube} style={{ width: 30 }} alt="youtube" />
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    )}
+                                </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
 
             <button
@@ -156,7 +433,7 @@ function App() {
                 📋 Copier la signature
             </button>
         </div>
-    )
+    );
 }
 
-export default App
+export default App;
