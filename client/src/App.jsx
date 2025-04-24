@@ -1,5 +1,6 @@
 import { useRef } from 'react'
 import './App.css'
+import { icons } from './assets/icons.js';
 
 function App() {
     const signatureRef = useRef(null);
@@ -10,7 +11,7 @@ function App() {
     <title>Signature</title>
 </head>
 
-<table cellpadding="0" cellspacing="0" style="font-family: Arial, sans-serif; font-size: 14px; color: #fff;background-color:#00AE5E; border-radius:10px;width: 600px; height: 260px">
+<table cellpadding="0" cellspacing="0" style="font-family: Arial, sans-serif; font-size: 14px; color: #fff;background-color:#00AE5E; border-radius:10px;width: 600px; height: 235px">
     <tr>
         <td>
             <table cellpadding="0" cellspacing="0" style="width: 100%">
@@ -24,7 +25,7 @@ function App() {
                             </tr>
                             <tr>
                                 <td style="padding: 0 0 0 25px;">
-                                    <h3 style="font-weight: normal;margin-top: 4px;font-family: Arial, sans-serif;text-align: left;font-size: 18px;">Pôle expertise et développement</h3>
+                                    <h3 style="font-weight: normal;margin:0;margin-top: 4px;font-family: Arial, sans-serif;text-align: left;font-size: 18px;">Pôle expertise et développement</h3>
                                 </td>
                             </tr>
                         </table>
@@ -33,12 +34,12 @@ function App() {
 
                 <tr>
                     <td>
-                        <table cellpadding="0" cellspacing="0" style="width: 100%;text-align: left">
+                        <table cellpadding="0" cellspacing="0" style="width: 100%;margin-top:10px;text-align: center">
                             <tr>
                                 <td style="padding: 0 0 0 25px;width: 25px">
-                                    <img src="elements/phone.png" style="width:22px" alt="phone">
+                                    <img src=${icons.phone} alt="Phone" style="width:22px; vertical-align: middle;" />
                                 </td>
-                                <td style="text-align: left;">
+                                <td style="text-align: left;padding-top: 3px">
                                     <a href="tel:+33490409186" style="color: white; text-decoration: none;text-align: left;font-family: Arial, sans-serif;">
                                         + 33 4 90 65 65 86
                                     </a>
@@ -49,12 +50,12 @@ function App() {
                 </tr>
                 <tr>
                     <td style="padding: 0 0 20px 0;">
-                        <table cellpadding="0" cellspacing="0" style="color: #fff; margin-top: 8px">
+                        <table cellpadding="0" cellspacing="0" style="color: #fff;">
                             <tr>
                                 <td style="padding: 0 0 0 25px; width: 25px">
-                                    <img src="elements/tel.png" style="width:22px" alt="tel">
+                                    <img src=${icons.tel} style="width:22px; vertical-align: middle;" alt="tel">
                                 </td>
-                                <td style="text-align: left;">
+                                <td style="text-align: left;padding-top: 3px;">
                                     <a href="tel:+33490409186" style="color: white; text-decoration: none;font-family: Arial, sans-serif;">
                                         + 33 6 78 91 01 12
                                     </a>
@@ -72,17 +73,17 @@ function App() {
             <table cellpadding="0" cellspacing="0" style="font-family: Arial, sans-serif; font-size: 14px; padding: 15px; color: #000;background-color:#006633; width: 100%; border-radius: 10px">
                 <tr style="vertical-align: middle">
                     <td style="text-align: left;">
-                         <img src="elements/edissyum.png" style="width:200px;height:32px;padding-left: 15px" alt="edissyum">
+                         <img src=${icons.edissyum} style="width:200px;height:32px;padding-left: 15px" alt="edissyum">
                     </td>
                     <td style="padding-left: 25px">
                         <table>
                             <tr>
-                                <td style="text-align: right">
+                                <td style="text-align: right;padding: 0">
                                     <a href="https://edissyum.com/" target="_blank" style="color: #D2FBD0; text-decoration: none;font-size: 14px;line-height: 14px;font-family: Arial, sans-serif;">https://edissyum.com</a>
                                 </td>
                             </tr>
                             <tr>
-                                <td style="text-align: right">
+                                <td style="text-align: right;padding: 0;">
                                     <a href="https://open-capture.com/" target="_blank" style="color: #D2FBD0; text-decoration: none;font-size: 14px;line-height: 14px;font-family: Arial, sans-serif;">https://open-capture.com</a>
                                 </td>
                             </tr>
@@ -93,17 +94,17 @@ function App() {
                             <tr>
                                 <td style="text-align: right;">
                                     <a href="https://facebook.com/edissyum/" target="_blank" style="text-decoration: none;background-color: #00AE5E; width: 30px; height:30px;display: block;border-radius:4px;padding: 3px" title="Facebook">
-                                        <img src="elements/facebook.png" style="width:30px" alt="facebook">
+                                        <img src=${icons.facebook} style="width:30px" alt="facebook">
                                     </a>
                                 </td>
                                 <td style="text-align: right">
                                     <a href="https://linkedin.com/company/edissyum-consulting/" target="_blank" style="text-decoration: none;background-color: #00AE5E; width: 30px; height:30px;display: block;border-radius:4px;padding: 3px" title="LinkedIn">
-                                        <img src="elements/linkedin.png" style="width:30px" alt="linkedin">
+                                        <img src=${icons.linkedin} style="width:30px" alt="linkedin">
                                     </a>
                                 </td>
                                 <td style="text-align: right">
                                     <a href="https://youtube.com/channel/UCQh4DnAakzDXuMXtMK2BTpQ/" target="_blank" style="text-decoration: none;background-color: #00AE5E; width: 30px; height:30px;display: block;border-radius:4px;padding: 3px" title="YouTube">
-                                       <img src="elements/youtube.png" style="width:30px" alt="youtube">
+                                       <img src=${icons.youtube} style="width:30px" alt="youtube">
                                     </a>
                                 </td>
                             </tr>
