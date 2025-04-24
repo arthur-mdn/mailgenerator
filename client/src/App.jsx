@@ -38,7 +38,7 @@ function App() {
                                 <td style="padding: 0 0 0 25px;width: 25px">
                                     <img src="elements/phone.png" style="width:22px" alt="phone">
                                 </td>
-                                <td style="padding-left: 7px;text-align: left;">
+                                <td style="text-align: left;">
                                     <a href="tel:+33490409186" style="color: white; text-decoration: none;text-align: left;font-family: Arial, sans-serif;">
                                         + 33 4 90 65 65 86
                                     </a>
@@ -54,7 +54,7 @@ function App() {
                                 <td style="padding: 0 0 0 25px; width: 25px">
                                     <img src="elements/tel.png" style="width:22px" alt="tel">
                                 </td>
-                                <td style="padding-left: 7px;text-align: left;">
+                                <td style="text-align: left;">
                                     <a href="tel:+33490409186" style="color: white; text-decoration: none;font-family: Arial, sans-serif;">
                                         + 33 6 78 91 01 12
                                     </a>
