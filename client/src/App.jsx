@@ -10,21 +10,21 @@ function App() {
     <title>Signature</title>
 </head>
 
-<table cellpadding="0" cellspacing="0" style="font-family: Arial, sans-serif; font-size: 14px; color: #fff;background-color:#00AE5E; border-radius:10px">
+<table cellpadding="0" cellspacing="0" style="font-family: Arial, sans-serif; font-size: 14px; color: #fff;background-color:#00AE5E; border-radius:10px;width: 600px; height: 260px">
     <tr>
         <td>
-            <table cellpadding="0" cellspacing="0" style="padding: 25px;">
+            <table cellpadding="0" cellspacing="0" style="width: 100%">
                 <tr>
                     <td>
-                        <table cellpadding="0" cellspacing="0" style="color: #fff">
+                        <table cellpadding="0" cellspacing="0" style="color: #fff; width: 100%;">
                             <tr>
-                                <td>
-                                    <h1 style="margin:0;font-family: Arial, sans-serif;">Arthur Mondon</h1>
+                                <td style="padding: 20px 0 0 25px;">
+                                    <h1 style="margin:0;font-family: Arial, sans-serif;text-align: left;font-size: 26px;">Arthur Mondon</h1>
                                 </td>
                             </tr>
                             <tr>
-                                <td>
-                                    <h3 style="font-weight: normal;margin-top: 4px;font-family: Arial, sans-serif;text-align: left;">Pôle expertise et développement</h3>
+                                <td style="padding: 0 0 0 25px;">
+                                    <h3 style="font-weight: normal;margin-top: 4px;font-family: Arial, sans-serif;text-align: left;font-size: 18px;">Pôle expertise et développement</h3>
                                 </td>
                             </tr>
                         </table>
@@ -33,13 +33,13 @@ function App() {
 
                 <tr>
                     <td>
-                        <table cellpadding="0" cellspacing="0">
+                        <table cellpadding="0" cellspacing="0" style="width: 100%;text-align: left">
                             <tr>
-                                <td>
+                                <td style="padding: 0 0 0 25px;width: 25px">
                                     <img src="elements/phone.png" style="width:22px" alt="phone">
                                 </td>
-                                <td style="padding-left: 7px">
-                                    <a href="tel:+33490409186" style="color: white; text-decoration: none;font-family: Arial, sans-serif;">
+                                <td style="padding-left: 7px;text-align: left;">
+                                    <a href="tel:+33490409186" style="color: white; text-decoration: none;text-align: left;font-family: Arial, sans-serif;">
                                         + 33 4 90 65 65 86
                                     </a>
                                 </td>
@@ -48,13 +48,13 @@ function App() {
                     </td>
                 </tr>
                 <tr>
-                    <td>
+                    <td style="padding: 0 0 20px 0;">
                         <table cellpadding="0" cellspacing="0" style="color: #fff; margin-top: 8px">
                             <tr>
-                                <td style="width: 20px">
+                                <td style="padding: 0 0 0 25px; width: 25px">
                                     <img src="elements/tel.png" style="width:22px" alt="tel">
                                 </td>
-                                <td style="padding-left: 7px">
+                                <td style="padding-left: 7px;text-align: left;">
                                     <a href="tel:+33490409186" style="color: white; text-decoration: none;font-family: Arial, sans-serif;">
                                         + 33 6 78 91 01 12
                                     </a>
@@ -71,10 +71,10 @@ function App() {
         <td>
             <table cellpadding="0" cellspacing="0" style="font-family: Arial, sans-serif; font-size: 14px; padding: 15px; color: #000;background-color:#006633; width: 100%; border-radius: 10px">
                 <tr style="vertical-align: middle">
-                    <td>
+                    <td style="text-align: left;">
                          <img src="elements/edissyum.png" style="width:200px;height:32px;padding-left: 15px" alt="edissyum">
                     </td>
-                    <td style="padding-left: 50px">
+                    <td style="padding-left: 25px">
                         <table>
                             <tr>
                                 <td style="text-align: right">
@@ -88,10 +88,10 @@ function App() {
                             </tr>
                         </table>
                     </td>
-                    <td style="padding-left: 25px;padding-top:8px">
-                        <table>
+                    <td style="padding-left: 25px;padding-top:8px; text-align: right;">
+                        <table style="width: 100%">
                             <tr>
-                                <td style="text-align: center">
+                                <td style="text-align: right;">
                                     <a href="https://facebook.com/edissyum/" target="_blank" style="text-decoration: none;background-color: #00AE5E; width: 30px; height:30px;display: block;border-radius:4px;padding: 3px" title="Facebook">
                                         <img src="elements/facebook.png" style="width:30px" alt="facebook">
                                     </a>
