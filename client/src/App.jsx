@@ -6,11 +6,6 @@ function App() {
     const signatureRef = useRef(null);
 
     const signatureHTML = `
-  <head>
-    <meta http-equiv="Content-Type"  content="text/html charset=UTF-8" />
-    <title>Signature</title>
-</head>
-
 <table cellpadding="0" cellspacing="0" style="font-family: Arial, sans-serif; font-size: 14px; color: #fff;background-color:#00AE5E; border-radius:10px;width: 600px; height: 235px">
     <tr>
         <td>
@@ -55,7 +50,7 @@ function App() {
                                 <td style="padding: 0 0 0 25px; width: 25px">
                                     <img src=${icons.tel} style="width:22px; vertical-align: middle;" alt="tel">
                                 </td>
-                                <td style="text-align: left;padding-top: 3px;">
+                                <td style="text-align: left;padding-top: 0;">
                                     <a href="tel:+33490409186" style="color: white; text-decoration: none;font-family: Arial, sans-serif;">
                                         + 33 6 78 91 01 12
                                     </a>
@@ -116,7 +111,6 @@ function App() {
             </table>
         </td>
     </tr>
-    <!--<img src="signature_files/edissyum-logo.png" alt="Signature Arthur Mondon" style="width: 218px; max-width: 100%; border: 0;"> -->
 </table>
 
 `;
