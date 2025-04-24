@@ -166,14 +166,14 @@ function App() {
                     <tbody>
                     <tr>
                         <td>
-                            <table cellPadding="0" cellSpacing="0" style={{ width: '100%' }}>
+                            <table cellPadding="0" cellSpacing="0" style={{width: '100%'}}>
                                 <tbody>
                                 <tr>
                                     <td>
-                                        <table cellPadding="0" cellSpacing="0" style={{ color: '#fff', width: '100%' }}>
+                                        <table cellPadding="0" cellSpacing="0" style={{color: '#fff', width: '100%'}}>
                                             <tbody>
                                             <tr>
-                                                <td style={{ padding: '20px 0 0 25px' }}>
+                                                <td style={{padding: '20px 0 0 25px'}}>
                                                     <h1
                                                         style={{
                                                             margin: 0,
@@ -189,7 +189,7 @@ function App() {
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td style={{ padding: '0 0 0 25px' }}>
+                                                <td style={{padding: '0 0 0 25px'}}>
                                                     <h3
                                                         style={{
                                                             fontWeight: 'normal',
@@ -274,7 +274,20 @@ function App() {
                                         </td>
                                     </tr>
                                 )}
+
                                 </tbody>
+                            </table>
+                        </td>
+                        <td>
+                            <table style={{padding:"25px"}}>
+                                <tr>
+                                    <td style={{width: 300, height: 130, padding: 0, backgroundColor: 'white', borderRadius: 10, textAlign: 'center', overflow: 'hidden'}} valign="middle">
+                                        <img
+                                            src="signature_files/MEM.png"
+                                            alt="Signature Arthur Mondon"
+                                            style={{width: 300, height: 130, objectFit: 'cover', border: 0}}/>
+                                    </td>
+                                </tr>
                             </table>
                         </td>
                     </tr>
