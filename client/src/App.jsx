@@ -6,7 +6,8 @@ import { FiSliders, FiShare, FiDownload, FiClipboard, FiCode } from 'react-icons
 import { PiMicrosoftOutlookLogoFill } from "react-icons/pi";
 import { SiThunderbird } from "react-icons/si";
 
-function ExportViaDownloadHTML({signatureRef, pseudo}) {
+function ExportViaDownloadHTML({signatureRef, lastname, firstname}) {
+    let pseudo = `${firstname} ${lastname}`;
     pseudo = pseudo.replace(/[^a-zA-Z0-9]/g, '_');
     if(!pseudo){
         pseudo = 'Signature';
@@ -85,7 +86,6 @@ function App() {
     const [height, setHeight] = useState(235);
     const [showSocialNetworks, setShowSocialNetworks] = useState(false);
     const [showAdditionalContent, setShowAdditionalContent] = useState(false);
-    const [pseudo, setPseudo] = useState('');
     const [lastName, setLastName] = useState('');
     const [firstName, setFirstName] = useState('');
     const [role, setRole] = useState('');
@@ -127,7 +127,7 @@ function App() {
     }
 
     const updateHeight = () => {
-        if (mobile === '') {
+        if (mobile.trim() === '') {
             setHeight(200);
         } else {
             setHeight(235);
@@ -186,17 +186,6 @@ function App() {
                                 )}
                             </div>
 
-                            <label className={"input_container"}>
-                                Pseudo
-                                <input
-                                    type="text"
-                                    required
-                                    value={pseudo}
-                                    onChange={(e) => setPseudo(e.target.value)}
-                                    placeholder="amo01"
-                                    maxLength={20}
-                                />
-                            </label>
                             <label className={"input_container"}>
                                 Prénom
                                 <input
@@ -311,7 +300,7 @@ function App() {
                                     <p>Pour Thunderbird, cliquez sur le bouton ci-dessous.</p>
 
                                     <p>Téléchargez la signature au format HTML.</p>
-                                    <ExportViaDownloadHTML signatureRef={signatureRef} pseudo={pseudo}/>
+                                    <ExportViaDownloadHTML signatureRef={signatureRef} firstname={firstName} lastname={lastName}/>
                                 </div>
                             )
                         }
@@ -403,7 +392,7 @@ function App() {
                                 </tr>
                                 <tr style={{height: 0}}>
 
-                                    <td style={(mobile === '') ? {padding: '10px 0 20px 0'} : {padding: '10px 0 0 0'}}>
+                                    <td style={(mobile.trim() === '') ? {padding: '10px 0 20px 0'} : {padding: '10px 0 0 0'}}>
                                         <table
                                             cellPadding="0"
                                             cellSpacing="0"
@@ -436,7 +425,7 @@ function App() {
                                         </table>
                                     </td>
                                 </tr>
-                                {(mobile && mobile !== '') && (
+                                {(mobile && mobile.trim() !== '') && (
                                     <tr>
                                         <td style={{padding: '5px 0 20px 0'}}>
                                             <table cellPadding="0" cellSpacing="0" style={{color: '#fff'}}>
