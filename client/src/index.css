@@ -13,6 +13,14 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+* {
+    box-sizing: border-box;
+}
+
+table * {
+  box-sizing: revert;
+}
+
 a {
   font-weight: 500;
   color: #646cff;

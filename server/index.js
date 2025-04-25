@@ -34,12 +34,26 @@ const storage = multer.diskStorage({
     }
 });
 
+// seve uploads folder
+app.use('/uploads', express.static(uploadFolder));
+
 const upload = multer({ storage });
 
 // GET route: retourner le JSON
 app.get('/additional_content', (req, res) => {
     const contents = JSON.parse(fs.readFileSync(dataFile));
     res.json(contents);
+});
+
+app.get('/b64/:id', (req, res) => {
+    const { id } = req.params;
+    const contents = JSON.parse(fs.readFileSync(dataFile));
+    const content = contents.find(item => item.id === id);
+    if (!content) return res.status(404).json({ error: 'Contenu non trouvé' });
+    const filePath = path.join(uploadFolder, content.filename);
+    const fileBuffer = fs.readFileSync(filePath);
+    const base64 = fileBuffer.toString('base64');
+    res.send(base64);
 });
 
 // POST route: uploader une image avec titre

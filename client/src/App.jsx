@@ -1,6 +1,7 @@
 import {useEffect, useRef, useState} from 'react'
 import './App.css'
 import { icons } from './assets/icons.js';
+import SelectAdditionalContent from "./components/SelectAdditionalContent.jsx";
 
 function App() {
     const signatureRef = useRef(null);
@@ -16,7 +17,7 @@ function App() {
     const [phone, setPhone] = useState('');
     const [mobile, setMobile] = useState('');
 
-    const [additionalContents, setAdditionalContents] = useState([]);
+    const [additionalContent, setAdditionalContent] = useState('');
 
     const handleCopy = () => {
         const range = document.createRange();
@@ -64,24 +65,17 @@ function App() {
         updateWidth();
     }, [showSocialNetworks,showAdditionalContent, mobile]);
 
-    useEffect(() => {
-        const fetchAdditionalContents = async () => {
-            try {
-                const response = await fetch('http://localhost:3001/additional_content');
-                const data = await response.json();
-                setAdditionalContents(data);
-            } catch (error) {
-                console.error('Erreur lors de la récupération des contenus additionnels:', error);
-            }
-        };
-
-        fetchAdditionalContents();
-    }, []);
+    const setBase64 = async (base64) => {
+        try {
+            setAdditionalContent(base64);
+        }
+        catch (error) {
+            console.error('Erreur lors du chargement de l\'image en base64:', error);
+        }
+    }
 
     return (
-        <div style={{ padding: '2rem', fontFamily: 'Arial, sans-serif' }}>
-            <h1>Signature Preview</h1>
-
+        <div style={{fontFamily: 'Arial, sans-serif' }}>
             <form>
                 <label>
                     Afficher les réseaux sociaux
@@ -101,10 +95,10 @@ function App() {
                         onChange={() => setShowAdditionalContent(!showAdditionalContent)}
                     />
                 </label>
-                {additionalContents.length > 0 && showAdditionalContent && (
+                {showAdditionalContent && (
                     <>
 
-
+                        <SelectAdditionalContent onSelect={setBase64} />
                     </>
                 )}
                 <br/>
@@ -329,7 +323,7 @@ function App() {
                                         <tr>
                                             <td style={{width: '100%', height: '100%', padding: "25px", textAlign: 'center', overflow: 'hidden'}} valign="middle">
                                                 <img
-                                                    src={icons.edissyum}
+                                                    src={`${additionalContent.includes('base64') ? additionalContent : `data:image/png;base64,${additionalContent}`}`}
                                                     alt="Signature Arthur Mondon"
                                                     style={{width: '100%', height: '100%', objectFit: 'cover', border: 0, verticalAlign: 'middle', borderRadius: 10}}/>
                                             </td>
