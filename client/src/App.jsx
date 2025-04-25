@@ -367,8 +367,8 @@ function App() {
                                             />
                                         </a>
                                     </td>
-                                    <td>
-                                        <table style={(!showSocialNetworks) ? {paddingRight: '10px', width: '100%'} : {width: '100%'}}>
+                                    <td style={(!showSocialNetworks) ? {paddingRight: 15, width: '100%'} : {width: '100%'}}>
+                                        <table style={{width: '100%'}}>
                                             <tbody>
                                             <tr>
                                                 <td style={{textAlign: 'right', padding: 0}}>
@@ -410,7 +410,7 @@ function App() {
                                         </table>
                                     </td>
                                     {showSocialNetworks && (
-                                        <td style={{paddingLeft: 15, textAlign: 'right', verticalAlign: 'middle'}}>
+                                        <td style={{textAlign: 'right', verticalAlign: 'middle'}}>
                                             <table style={{width: '100%', verticalAlign: 'middle'}}>
                                                 <tbody>
                                                 <tr>
