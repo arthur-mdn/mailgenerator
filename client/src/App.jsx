@@ -2,9 +2,11 @@ import {useEffect, useRef, useState} from 'react'
 import './App.css'
 import { icons } from './assets/icons.js';
 import SelectAdditionalContent from "./components/SelectAdditionalContent.jsx";
+import { FiSliders, FiShare, FiDownload, FiClipboard } from 'react-icons/fi';
 
 function App() {
     const signatureRef = useRef(null);
+    const [tab, setTab] = useState('inputs');
 
     const [width, setWidth] = useState(600);
     const [height, setHeight] = useState(235);
@@ -75,112 +77,181 @@ function App() {
     }
 
     return (
-        <div style={{fontFamily: 'Arial, sans-serif' }}>
-            <form>
-                <label>
-                    Afficher les réseaux sociaux
-                    <input
-                        type="checkbox"
-                        checked={showSocialNetworks}
-                        onChange={() => setShowSocialNetworks(!showSocialNetworks)}
-                    />
-                </label>
-                <br/>
+        <div style={{fontFamily: 'Arial, sans-serif', display:'flex', flexDirection:'column', gap:'1rem', alignItems:'center'}}>
+            <div className={"tabs"}>
 
-                <label>
-                    Afficher le contenu additionnel
-                    <input
-                        type="checkbox"
-                        checked={showAdditionalContent}
-                        onChange={() => setShowAdditionalContent(!showAdditionalContent)}
-                    />
+                <label htmlFor={"tab_inputs"} className={"tab"}>
+                    <FiSliders/>
+                    <input type={"radio"} name={"tab"} id={"tab_inputs"} value={"inputs"} checked={tab === 'inputs'} onChange={() => setTab('inputs')}/>
+                    Modification
                 </label>
-                {showAdditionalContent && (
-                    <>
+                <label htmlFor={"tab_export"} className={"tab"}>
+                    <FiShare/>
+                    <input type={"radio"} name={"tab"} id={"tab_export"} value={"export"} checked={tab === 'export'} onChange={() => setTab('export')}/>
+                    Exportation
+                </label>
+            </div>
 
-                        <SelectAdditionalContent onSelect={setBase64} />
-                    </>
-                )}
-                <br/>
+            {
+                tab === 'inputs' && (
+                    <form style={{backgroundColor: 'white', padding: '2rem', width: 450, borderRadius: '0.5rem', textAlign: 'left'}}>
+                        <div style={{display: 'flex', flexDirection: 'column', gap: '0.5rem'}}>
+                            <div style={{marginBottom: 10}}>
+                                <label>
+                                    <input
+                                        type="checkbox"
+                                        checked={showAdditionalContent}
+                                        onChange={() => setShowAdditionalContent(!showAdditionalContent)}
+                                    />
+                                    Afficher le contenu additionnel
+                                </label>
+                                {showAdditionalContent && (
+                                    <>
 
-                <label>
-                    Pseudo
-                    <input
-                        type="text"
-                        required
-                        value={pseudo}
-                        onChange={(e) => setPseudo(e.target.value)}
-                        placeholder="amo01"
-                        style={{marginLeft: '10px', marginBottom: '10px'}}
-                        maxLength={20}
-                    />
-                </label>
-                <br/>
-                <label>
-                    Prénom
-                    <input
-                        type="text"
-                        required
-                        value={firstName}
-                        onChange={(e) => setFirstName(e.target.value)}
-                        placeholder="Arthur"
-                        style={{marginLeft: '10px', marginBottom: '10px'}}
-                        maxLength={20}
-                    />
-                </label>
-                <br/>
-                <label>
-                    Nom
-                    <input
-                        type="text"
-                        required
-                        value={lastName}
-                        onChange={(e) => setLastName(e.target.value)}
-                        placeholder="Mondon"
-                        style={{marginLeft: '10px', marginBottom: '10px'}}
-                        maxLength={20}
-                    />
-                </label>
-                <br/>
-                <label>
-                    Fonction
-                    <input
-                        type="text"
-                        required
-                        value={role}
-                        onChange={(e) => setRole(e.target.value)}
-                        placeholder="Pôle expertise et développement"
-                        style={{marginLeft: '10px', marginBottom: '10px'}}
-                        maxLength={45}
-                    />
-                </label>
-                <br/>
-                <label>
-                    Téléphone
-                    <input
-                        type="tel"
-                        required
-                        value={phone}
-                        onChange={(e) => setPhone(e.target.value)}
-                        placeholder="+33 4 90 65 65 86"
-                        style={{marginLeft: '10px', marginBottom: '10px'}}
-                        maxLength={20}
-                    />
-                </label>
-                <br/>
-                <label>
-                    Mobile
-                    <input
-                        type="tel"
-                        required
-                        value={mobile}
-                        onChange={(e) => setMobile(e.target.value)}
-                        placeholder="+33 6 78 91 01 12"
-                        style={{marginLeft: '10px', marginBottom: '10px'}}
-                        maxLength={20}
-                    />
-                </label>
-            </form>
+                                        <SelectAdditionalContent onSelect={setBase64}/>
+                                    </>
+                                )}
+                            </div>
+
+                            <label className={"input_container"}>
+                                Pseudo
+                                <input
+                                    type="text"
+                                    required
+                                    value={pseudo}
+                                    onChange={(e) => setPseudo(e.target.value)}
+                                    placeholder="amo01"
+                                    maxLength={20}
+                                />
+                            </label>
+                            <label className={"input_container"}>
+                                Prénom
+                                <input
+                                    type="text"
+                                    required
+                                    value={firstName}
+                                    onChange={(e) => setFirstName(e.target.value)}
+                                    placeholder="Arthur"
+                                    maxLength={20}
+                                />
+                            </label>
+                            <label className={"input_container"}>
+                                Nom
+                                <input
+                                    type="text"
+                                    required
+                                    value={lastName}
+                                    onChange={(e) => setLastName(e.target.value)}
+                                    placeholder="Mondon"
+                                    maxLength={20}
+                                />
+                            </label>
+
+                            <label className={"input_container"}>
+                                Fonction
+                                <input
+                                    type="text"
+                                    required
+                                    value={role}
+                                    onChange={(e) => setRole(e.target.value)}
+                                    placeholder="Pôle expertise et développement"
+                                    maxLength={45}
+                                />
+                            </label>
+                            <label className={"input_container"}>
+                                Téléphone
+                                <input
+                                    type="tel"
+                                    required
+                                    value={phone}
+                                    onChange={(e) => setPhone(e.target.value)}
+                                    placeholder="+33 4 90 65 65 86"
+                                    maxLength={20}
+                                />
+                            </label>
+                            <label className={"input_container"}>
+                                Mobile
+                                <input
+                                    type="tel"
+                                    required
+                                    value={mobile}
+                                    onChange={(e) => setMobile(e.target.value)}
+                                    placeholder="+33 6 78 91 01 12"
+                                    maxLength={20}
+                                />
+                            </label>
+                            <label style={{paddingTop: 10}}>
+                                <input
+                                    type="checkbox"
+                                    checked={showSocialNetworks}
+                                    onChange={() => setShowSocialNetworks(!showSocialNetworks)}
+                                />
+                                Afficher les réseaux sociaux
+                            </label>
+                        </div>
+                    </form>
+
+                )
+            }
+
+            {
+                tab === 'export' && (
+                    <div style={{backgroundColor: 'white', padding: '2rem', width: 450, borderRadius: '0.5rem', textAlign: 'left', display:'flex', flexDirection:'column', gap:'0.5rem'}}>
+                        <p>Copiez le code HTML ci-dessous et collez-le dans votre client de messagerie.</p>
+                        <textarea
+                            style={{width: '100%', height: 200, resize: 'none'}}
+                            value={signatureRef.current ? signatureRef.current.innerHTML : ''}
+                            readOnly
+                            onClick={() => {
+                                const range = document.createRange();
+                                range.selectNode(signatureRef.current);
+                                const selection = window.getSelection();
+                                selection.removeAllRanges();
+                                selection.addRange(range);
+
+                                try {
+                                    document.execCommand('copy');
+                                    alert('Signature copiée avec style !');
+                                } catch (err) {
+                                    alert("Échec de la copie.");
+                                    console.error(err);
+                                }
+
+                                selection.removeAllRanges();
+                            }
+                            }
+                        />
+                        <p>Ou téléchargez l'image de la signature ci-dessous.</p>
+                        <a
+                            href={`data:text/html;charset=utf-8,${encodeURIComponent(signatureRef.current ? signatureRef.current.innerHTML : '')}`}
+                            download={`${pseudo}.html`}
+                            style={{textDecoration: 'none', color: '#00AE5E'}}
+                        >
+                            <button style={{padding: '10px 20px', cursor: 'pointer', backgroundColor: '#00AE5E', color: '#fff', border: 'none', borderRadius: '5px'}}>
+                                <FiDownload/>
+                                Télécharger la signature
+                            </button>
+                        </a>
+
+                        <p>Ou copiez via le bouton ci-desous.</p>
+                        <button
+                            onClick={handleCopy}
+                            style={{
+                                padding: '10px 20px',
+                                fontSize: '16px',
+                                cursor: 'pointer',
+                                backgroundColor: '#00AE5E',
+                                color: '#fff',
+                            }}
+                        >
+                            <FiClipboard/>
+                            Copier la signature
+                        </button>
+                    </div>
+
+                )
+            }
+
 
             <div ref={signatureRef}>
                 <table
@@ -198,11 +269,11 @@ function App() {
                 >
                     <tbody>
                     <tr>
-                        <td style={{verticalAlign:'top'}}>
+                        <td style={{verticalAlign: 'top'}}>
                             <table cellPadding="0" cellSpacing="0" style={{width: '100%'}}>
                                 <tbody>
                                 <tr>
-                                    <td style={{height:0}}>
+                                    <td style={{height: 0}}>
                                         <table cellPadding="0" cellSpacing="0" style={{color: '#fff', width: '100%'}}>
                                             <tbody>
                                             <tr>
@@ -242,7 +313,7 @@ function App() {
                                         </table>
                                     </td>
                                 </tr>
-                                <tr style={{height:0}}>
+                                <tr style={{height: 0}}>
 
                                     <td style={(mobile === '') ? {padding: '10px 0 20px 0'} : {padding: '10px 0 0 0'}}>
                                         <table
@@ -475,18 +546,6 @@ function App() {
                     </tbody>
                 </table>
             </div>
-
-            <button
-                onClick={handleCopy}
-                style={{
-                    marginTop: '20px',
-                    padding: '10px 20px',
-                    fontSize: '16px',
-                    cursor: 'pointer',
-                }}
-            >
-                📋 Copier la signature
-            </button>
         </div>
     );
 }

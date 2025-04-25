@@ -36,6 +36,35 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  background-color: #e8f3e8;
+}
+h1,h2,h3,h4,h5,h6,p {
+  margin: 0;
+}
+
+input[type="text"], input[type="email"], input[type="password"], input[type="number"], input[type="search"], input[type="tel"], input[type="url"], textarea {
+  border-radius: 5px;
+  border: 1px solid #eaeaea;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  margin: 0;
+  width: 100%;
+}
+
+button {
+  display: flex;
+  align-content: center;
+    justify-content: center;
+  gap: 0.5rem;
+  width: fit-content;
+}
+
+.input_container{
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
 }
 
 h1 {
@@ -73,4 +102,30 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+
+.tabs{
+  display: flex;
+  background-color: white;
+  border-radius: 4rem;
+  overflow: hidden;
+}
+.tab{
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: background-color 0.25s;
+  display: flex;
+    align-items: center;
+    justify-content: center;
+  gap: 0.5rem;
+  font-weight: bold;
+  border-radius: 4rem;
+}
+.tab input[type="radio"] {
+    display: none;
+}
+
+.tab:has(input[type="radio"]:checked) {
+    background-color: rgb(0, 174, 94);
+  color: white;
 }
