@@ -2,11 +2,84 @@ import {useEffect, useRef, useState} from 'react'
 import './App.css'
 import { icons } from './assets/icons.js';
 import SelectAdditionalContent from "./components/SelectAdditionalContent.jsx";
-import { FiSliders, FiShare, FiDownload, FiClipboard } from 'react-icons/fi';
+import { FiSliders, FiShare, FiDownload, FiClipboard, FiCode } from 'react-icons/fi';
+import { PiMicrosoftOutlookLogoFill } from "react-icons/pi";
+import { SiThunderbird } from "react-icons/si";
+
+function ExportViaDownloadHTML({signatureRef, pseudo}) {
+    pseudo = pseudo.replace(/[^a-zA-Z0-9]/g, '_');
+    if(!pseudo){
+        pseudo = 'Signature';
+    }
+    else {
+        pseudo = 'Signature_' + pseudo;
+    }
+    return (
+        <a
+            href={`data:text/html;charset=utf-8,${encodeURIComponent(signatureRef.current ? signatureRef.current.innerHTML : '')}`}
+            download={`${pseudo}.html`}
+            style={{textDecoration: 'none', color: '#00AE5E'}}
+        >
+            <button style={{padding: '10px 20px', cursor: 'pointer', backgroundColor: '#00AE5E', color: '#fff', border: 'none', borderRadius: '5px'}}>
+                <FiDownload/>
+                Télécharger la signature
+            </button>
+        </a>
+    )
+}
+
+function ExportViaCopy({handleCopy}) {
+    return (
+        <button
+            onClick={handleCopy}
+            style={{
+                padding: '10px 20px',
+                fontSize: '16px',
+                cursor: 'pointer',
+                backgroundColor: '#00AE5E',
+                color: '#fff',
+            }}
+        >
+            <FiClipboard/>
+            Copier la signature
+        </button>
+    )
+}
+
+function ExportViaCustom({signatureRef}){
+    return (
+        <>
+            <textarea
+                style={{width: '100%', height: 200, resize: 'none'}}
+                value={signatureRef.current ? signatureRef.current.innerHTML : ''}
+                readOnly
+                onClick={() => {
+                    const range = document.createRange();
+                    range.selectNode(signatureRef.current);
+                    const selection = window.getSelection();
+                    selection.removeAllRanges();
+                    selection.addRange(range);
+
+                    try {
+                        document.execCommand('copy');
+                        alert('Signature copiée avec style !');
+                    } catch (err) {
+                        alert("Échec de la copie.");
+                        console.error(err);
+                    }
+
+                    selection.removeAllRanges();
+                }
+                }
+            />
+        </>
+    )
+}
 
 function App() {
     const signatureRef = useRef(null);
     const [tab, setTab] = useState('inputs');
+    const [exportTab, setExportTab] = useState('thunderbird');
 
     const [width, setWidth] = useState(600);
     const [height, setHeight] = useState(235);
@@ -197,56 +270,71 @@ function App() {
             {
                 tab === 'export' && (
                     <div style={{backgroundColor: 'white', padding: '2rem', width: 450, borderRadius: '0.5rem', textAlign: 'left', display:'flex', flexDirection:'column', gap:'0.5rem'}}>
-                        <p>Copiez le code HTML ci-dessous et collez-le dans votre client de messagerie.</p>
-                        <textarea
-                            style={{width: '100%', height: 200, resize: 'none'}}
-                            value={signatureRef.current ? signatureRef.current.innerHTML : ''}
-                            readOnly
-                            onClick={() => {
-                                const range = document.createRange();
-                                range.selectNode(signatureRef.current);
-                                const selection = window.getSelection();
-                                selection.removeAllRanges();
-                                selection.addRange(range);
 
-                                try {
-                                    document.execCommand('copy');
-                                    alert('Signature copiée avec style !');
-                                } catch (err) {
-                                    alert("Échec de la copie.");
-                                    console.error(err);
-                                }
+                        <div className={"export_tabs"}>
+                            <label className={"export_tab"}>
+                                <input
+                                    type="radio"
+                                    name="exportTab"
+                                    value="thunderbird"
+                                    checked={exportTab === 'thunderbird'}
+                                    onChange={() => setExportTab('thunderbird')}
+                                />
+                                <SiThunderbird/>
+                            </label>
+                            <label className={"export_tab"}>
+                                <input
+                                    type="radio"
+                                    name="exportTab"
+                                    value="outlook"
+                                    checked={exportTab === 'outlook'}
+                                    onChange={() => setExportTab('outlook')}
+                                />
+                                <PiMicrosoftOutlookLogoFill/>
+                            </label>
+                            <label className={"export_tab"}>
+                                <input
+                                    type="radio"
+                                    name="exportTab"
+                                    value="html"
+                                    checked={exportTab === 'html'}
+                                    onChange={() => setExportTab('html')}
+                                />
+                                <FiCode/>
+                            </label>
+                        </div>
 
-                                selection.removeAllRanges();
-                            }
-                            }
-                        />
-                        <p>Ou téléchargez l'image de la signature ci-dessous.</p>
-                        <a
-                            href={`data:text/html;charset=utf-8,${encodeURIComponent(signatureRef.current ? signatureRef.current.innerHTML : '')}`}
-                            download={`${pseudo}.html`}
-                            style={{textDecoration: 'none', color: '#00AE5E'}}
-                        >
-                            <button style={{padding: '10px 20px', cursor: 'pointer', backgroundColor: '#00AE5E', color: '#fff', border: 'none', borderRadius: '5px'}}>
-                                <FiDownload/>
-                                Télécharger la signature
-                            </button>
-                        </a>
+                        {
+                            exportTab === 'thunderbird' && (
+                                <div style={{display: 'flex', flexDirection:'column', gap: '0.5rem'}}>
+                                    <h3>Thunderbird</h3>
+                                    <p>Pour Thunderbird, cliquez sur le bouton ci-dessous.</p>
 
-                        <p>Ou copiez via le bouton ci-desous.</p>
-                        <button
-                            onClick={handleCopy}
-                            style={{
-                                padding: '10px 20px',
-                                fontSize: '16px',
-                                cursor: 'pointer',
-                                backgroundColor: '#00AE5E',
-                                color: '#fff',
-                            }}
-                        >
-                            <FiClipboard/>
-                            Copier la signature
-                        </button>
+                                    <p>Téléchargez la signature au format HTML.</p>
+                                    <ExportViaDownloadHTML signatureRef={signatureRef} pseudo={pseudo}/>
+                                </div>
+                            )
+                        }
+
+                        {
+                            exportTab === 'outlook' && (
+                                <div style={{display: 'flex', flexDirection:'column', gap: '0.5rem'}}>
+                                    <h3>Outlook</h3>
+                                    <p>Pour Outlook, cliquez sur le bouton ci-dessous.</p>
+                                    <ExportViaCopy handleCopy={handleCopy}/>
+                                </div>
+                            )
+                        }
+
+                        {
+                            exportTab === 'html' && (
+                                <div style={{display: 'flex', flexDirection: 'column', gap: '0.5rem'}}>
+                                    <h3>HTML</h3>
+                                    <p>Pour d'autres clients de messagerie, copiez le code HTML ci-dessous et collez-le dans votre client de messagerie..</p>
+                                    <ExportViaCustom signatureRef={signatureRef}/>
+                                </div>
+                            )
+                        }
                     </div>
 
                 )
