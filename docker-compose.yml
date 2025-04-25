@@ -17,5 +17,6 @@ services:
       - "3001:3001"
     volumes:
       - ./server:/app
+      - /app/node_modules
     environment:
       - CLIENT_URL=http://localhost:5173
