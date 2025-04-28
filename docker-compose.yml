@@ -15,7 +15,7 @@ services:
       - "traefik.http.routers.MailGenerator-client.entrypoints=websecure"
       - "traefik.http.routers.MailGenerator-client.tls.certresolver=myresolver"
     depends_on:
-      - server
+      - MailGenerator-server
 
   MailGenerator-server:
     build: ./server
