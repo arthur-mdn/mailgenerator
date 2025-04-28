@@ -2,6 +2,7 @@ services:
   MailGenerator-client:
     build: ./client
     container_name: mailgenerator-client
+    image: mailgenerator-client
     ports:
       - "${CLIENT_PORT}:${CLIENT_PORT}"
     volumes:
@@ -20,6 +21,7 @@ services:
   MailGenerator-server:
     build: ./server
     container_name: mailgenerator-server
+    image: mailgenerator-server
     ports:
       - "${SERVER_PORT}:${SERVER_PORT}"
     volumes:
