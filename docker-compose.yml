@@ -3,7 +3,7 @@ services:
     build: ./client
     container_name: mailgenerator-client
     ports:
-      - "5173:5173"
+      - "${CLIENT_PORT}:${CLIENT_PORT}"
     volumes:
       - ./client:/app
       - /app/node_modules
@@ -21,7 +21,7 @@ services:
     build: ./server
     container_name: mailgenerator-server
     ports:
-      - "3001:3001"
+      - "${SERVER_PORT}:${SERVER_PORT}"
     volumes:
       - ./server:/app
       - /app/node_modules
@@ -30,6 +30,6 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.DisplayHub-server.rule=Host(`${SERVER_URL}`)"
-      - "traefik.http.services.DisplayHub-server.loadbalancer.server.port=3001"
+      - "traefik.http.services.DisplayHub-server.loadbalancer.server.port=${SERVER_PORT}"
       - "traefik.http.routers.DisplayHub-server.entrypoints=websecure"
       - "traefik.http.routers.DisplayHub-server.tls.certresolver=myresolver"
