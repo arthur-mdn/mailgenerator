@@ -11,7 +11,7 @@ services:
       - VITE_API_URL=${SERVER_URL}
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.MailGenerator-client.rule=Host(`${CLIENT_URL}`)"
+      - "traefik.http.routers.MailGenerator-client.rule=Host(`${CLIENT_DOMAIN}`)"
       - "traefik.http.routers.MailGenerator-client.entrypoints=websecure"
       - "traefik.http.routers.MailGenerator-client.tls.certresolver=myresolver"
     depends_on:
@@ -28,7 +28,7 @@ services:
       - CLIENT_URL=${CLIENT_URL}
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.MailGenerator-server.rule=Host(`${SERVER_URL}`)"
+      - "traefik.http.routers.MailGenerator-server.rule=Host(`${SERVER_DOMAIN}`)"
       - "traefik.http.services.MailGenerator-server.loadbalancer.server.port=${SERVER_PORT}"
       - "traefik.http.routers.MailGenerator-server.entrypoints=websecure"
       - "traefik.http.routers.MailGenerator-server.tls.certresolver=myresolver"
