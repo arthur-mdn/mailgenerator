@@ -1,0 +1,8 @@
+services:
+  MailGenerator-client:
+    ports:
+      - "${CLIENT_PORT}:${CLIENT_PORT}"
+
+  MailGenerator-server:
+    ports:
+      - "${SERVER_PORT}:${SERVER_PORT}"
