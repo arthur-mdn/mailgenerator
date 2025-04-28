@@ -64,7 +64,8 @@ function ExportViaOutlookZip({ signatureRef, additionalContent, getFormData }) {
         let pseudo = `${firstname} ${lastname}`.replace(/[^a-zA-Z0-9]/g, '_') || 'Signature';
         const signatureName = `${pseudo} (${email})`;
 
-        const folder = zip.folder(signatureName);
+        const signatureFolder = zip.folder(signatureName);
+        const imagesFolder = signatureFolder.folder(`${signatureName}_files`);
 
         let html = signatureRef.current.innerHTML;
 
@@ -80,21 +81,24 @@ function ExportViaOutlookZip({ signatureRef, additionalContent, getFormData }) {
         }
 
         imagesToInclude.forEach((img) => {
-            html = html.replace(new RegExp(escapeRegExp(img.base64), 'g'), img.name);
+            html = html.replace(
+                new RegExp(escapeRegExp(img.base64), 'g'),
+                `${signatureName}_files/${img.name}`
+            );
         });
 
-        folder.file(`${signatureName}.htm`, html);
+        signatureFolder.file(`${signatureName}.htm`, html);
 
         let textContent = `${firstname} ${lastname}\n${role}`;
         if (phone) textContent += `\nTel: ${phone}`;
         if (mobile) textContent += `\nMobile: ${mobile}`;
 
-        folder.file(`${signatureName}.txt`, textContent);
-        folder.file(`${signatureName}.rtf`, '');
+        signatureFolder.file(`${signatureName}.txt`, textContent);
+        signatureFolder.file(`${signatureName}.rtf`, '');
 
         for (const img of imagesToInclude) {
             const base64Data = img.base64.split(',')[1];
-            folder.file(img.name, base64Data, { base64: true });
+            imagesFolder.file(img.name, base64Data, { base64: true });
         }
 
         const content = await zip.generateAsync({ type: 'blob' });
