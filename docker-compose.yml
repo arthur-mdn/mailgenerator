@@ -1,11 +1,10 @@
 services:
   MailGenerator-client:
-    build: ./client
+    build:
+      context: ./client
+      dockerfile: Dockerfile.prod
     container_name: mailgenerator-client
     image: mailgenerator-client
-    volumes:
-      - ./client:/app
-      - /app/node_modules
     environment:
       - VITE_API_URL=${SERVER_URL}
     labels:
