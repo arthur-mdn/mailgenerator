@@ -3,6 +3,8 @@ services:
     build:
       context: ./client
       dockerfile: Dockerfile.prod
+      args:
+        VITE_API_URL: ${SERVER_URL}
     container_name: mailgenerator-client
     image: mailgenerator-client
     environment:
