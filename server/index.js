@@ -1,4 +1,4 @@
-// Backend Node.js complet avec Express
+const dotenv = require('dotenv');
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
@@ -6,6 +6,8 @@ const multer = require('multer');
 const fs = require('fs');
 const path = require('path');
 const { v4: uuidv4 } = require('uuid');
+
+dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 3001;
