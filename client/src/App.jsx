@@ -414,7 +414,7 @@ function App() {
                                             showThunderbirdSteps && (
                                                 <ol>
                                                     <li>Ouvrez Thunderbird.</li>
-                                                    <li>Allez dans "Outils" > "Paramètres des comptes".</li>
+                                                    <li>Allez dans "Outils" &gt; "Paramètres des comptes".</li>
                                                     <li>Sélectionnez le compte pour lequel vous souhaitez ajouter la signature.</li>
                                                     <li> Activez "Apposer la signature à partir d'un fichier" et sélectionnez le fichier HTML que vous avez téléchargé.</li>
                                                 </ol>
@@ -443,7 +443,7 @@ function App() {
                                             showOutlookNewSteps && (
                                                 <ol>
                                                     <li>Ouvrez Outlook.</li>
-                                                    <li>Allez dans "Fichier" > "Options" > "Courrier" > "Signatures".</li>
+                                                    <li>Allez dans "Fichier" &gt; "Options" &gt; "Courrier" &gt; "Signatures".</li>
                                                     <li>Cliquez sur "Nouveau" et donnez un nom à votre signature.</li>
                                                     <li>Collez la signature ci-dessous dans le champ de texte.</li>
                                                     <li>Enregistrez et fermez la fenêtre.</li>
@@ -469,7 +469,7 @@ function App() {
                                                     <li>Décompressez le dossier ZIP.</li>
                                                     <li>Ouvrez "C:\Users\VotreNom\AppData\Roaming\Microsoft\Signatures"</li>
                                                     <li>Glissez le dossier décompressé dans le dossier Signatures.</li>
-                                                    <li>Ouvrez Outlook et allez dans "Fichier" > "Options" > "Mail" > "Signatures".</li>
+                                                    <li>Ouvrez Outlook et allez dans "Fichier" &gt; "Options" &gt; "Mail" &gt; "Signatures".</li>
                                                     <li>Choisissez la signature que vous venez d'ajouter.</li>
                                                 </ol>
                                             )
