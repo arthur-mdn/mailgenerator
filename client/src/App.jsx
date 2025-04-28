@@ -43,13 +43,15 @@ function ExportViaDownloadHTML({signatureRef, lastname, firstname}) {
     )
 }
 
-function ExportViaOutlookZip({ signatureRef, additionalContent, firstname, lastname, role, phone, mobile }) {
+function ExportViaOutlookZip({ signatureRef, additionalContent, getFormData }) {
 
     function escapeRegExp(string) {
         return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     }
 
     const handleExportZip = async () => {
+        const { firstname, lastname, role, phone, mobile } = getFormData();
+
         const email = prompt('Veuillez entrer votre adresse e-mail (ex: utilisateur@exemple.com)');
 
         if (!email) {
@@ -57,15 +59,9 @@ function ExportViaOutlookZip({ signatureRef, additionalContent, firstname, lastn
             return;
         }
 
-        let _firstname = firstname || 'Arthur';
-        let _lastname = lastname || 'Mondon';
-        let _role = role || 'Pôle expertise et développement';
-        let _phone = phone || '+33 4 90 65 65 86';
-        let _mobile = mobile || '';
-
         const zip = new JSZip();
 
-        let pseudo = `${_firstname} ${_lastname}`.replace(/[^a-zA-Z0-9]/g, '_') || 'Signature';
+        let pseudo = `${firstname} ${lastname}`.replace(/[^a-zA-Z0-9]/g, '_') || 'Signature';
         const signatureName = `${pseudo} (${email})`;
 
         const folder = zip.folder(signatureName);
@@ -89,9 +85,9 @@ function ExportViaOutlookZip({ signatureRef, additionalContent, firstname, lastn
 
         folder.file(`${signatureName}.htm`, html);
 
-        let textContent = `${_firstname} ${_lastname}\n${_role}`;
-        if (_phone) textContent += `\nTel: ${_phone}`;
-        if (_mobile) textContent += `\nMobile: ${_mobile}`;
+        let textContent = `${firstname} ${lastname}\n${role}`;
+        if (phone) textContent += `\nTel: ${phone}`;
+        if (mobile) textContent += `\nMobile: ${mobile}`;
 
         folder.file(`${signatureName}.txt`, textContent);
         folder.file(`${signatureName}.rtf`, '');
@@ -117,7 +113,7 @@ function ExportViaOutlookZip({ signatureRef, additionalContent, firstname, lastn
                 marginTop: '10px'
             }}
         >
-            <FiDownload/>
+            <FiDownload />
             Télécharger pour Ancien Outlook (.zip)
         </button>
     );
@@ -488,7 +484,18 @@ function App() {
                                     </div>
 
 
-                                    <ExportViaOutlookZip signatureRef={signatureRef} additionalContent={additionalContent} firstname={firstName} lastname={lastName} role={role} phone={phone} mobile={mobile}/>
+                                    <ExportViaOutlookZip
+                                        signatureRef={signatureRef}
+                                        additionalContent={additionalContent}
+                                        getFormData={() => ({
+                                            firstname: firstName || 'Arthur',
+                                            lastname: lastName || 'Mondon',
+                                            role: role || 'Pôle expertise et développement',
+                                            phone: phone || '+33 4 90 65 65 86',
+                                            mobile: mobile || ''
+                                        })}
+                                    />
+
                                 </div>
                             )
                         }
