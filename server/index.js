@@ -8,12 +8,19 @@ const path = require('path');
 const { v4: uuidv4 } = require('uuid');
 
 const app = express();
-const port = 3001;
+const port = process.env.PORT || 3001;
 const uploadFolder = path.join(__dirname, 'uploads');
 const dataFile = path.join(__dirname, 'data', 'additionalContents.json');
 
 // Middleware
-app.use(cors());
+app.use(cors(
+    {
+        origin: process.env.CLIENT_URL || 'http://localhost:5173',
+        credentials: true,
+        methods: ['GET', 'POST', 'PUT', 'OPTIONS'],
+        allowedHeaders: ['Content-Type', 'Authorization']
+    }
+));
 app.use(bodyParser.json());
 app.use(express.static(uploadFolder));
 
