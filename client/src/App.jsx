@@ -6,8 +6,12 @@ import { FiSliders, FiShare, FiDownload, FiClipboard, FiCode } from 'react-icons
 import { PiMicrosoftOutlookLogoFill } from "react-icons/pi";
 import { SiThunderbird } from "react-icons/si";
 import { Helmet } from 'react-helmet';
+import JSZip from 'jszip';
+import { saveAs } from 'file-saver';
 
 import { edissyum } from './models/edissyum';
+import {FaChevronCircleDown, FaChevronUp} from "react-icons/fa";
+import {FaChevronDown} from "react-icons/fa6";
 
 const models = {
     edissyum: edissyum
@@ -38,6 +42,77 @@ function ExportViaDownloadHTML({signatureRef, lastname, firstname}) {
         </a>
     )
 }
+
+function ExportViaOutlookZip({ signatureRef, additionalContent, firstname, lastname }) {
+
+    function escapeRegExp(string) {
+        return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    }
+
+    const handleExportZip = async () => {
+        const email = prompt('Veuillez entrer votre adresse e-mail (ex: utilisateur@exemple.com)');
+
+        if (!email) {
+            alert('Adresse e-mail requise pour générer les fichiers Outlook.');
+            return;
+        }
+
+        const zip = new JSZip();
+
+        let pseudo = `${firstname} ${lastname}`.replace(/[^a-zA-Z0-9]/g, '_') || 'Signature';
+        const signatureName = `${pseudo} (${email})`; // <-- Outlook veut ça
+
+        const folder = zip.folder(signatureName);
+
+        let html = signatureRef.current.innerHTML;
+
+        const imagesToInclude = [
+            { base64: icons.edissyum, name: 'logo.png' },
+            { base64: icons.facebook, name: 'facebook.png' },
+            { base64: icons.linkedin, name: 'linkedin.png' },
+            { base64: icons.youtube, name: 'youtube.png' }
+        ];
+
+        if (additionalContent && additionalContent.includes('base64')) {
+            imagesToInclude.push({ base64: additionalContent, name: 'additional.png' });
+        }
+
+        imagesToInclude.forEach((img) => {
+            html = html.replace(new RegExp(escapeRegExp(img.base64), 'g'), img.name);
+        });
+
+        folder.file(`${signatureName}.htm`, html);
+        folder.file(`${signatureName}.txt`, '');
+        folder.file(`${signatureName}.rtf`, '');
+
+        for (const img of imagesToInclude) {
+            const base64Data = img.base64.split(',')[1]; // Remove the "data:image/png;base64,"
+            folder.file(img.name, base64Data, { base64: true });
+        }
+
+        const content = await zip.generateAsync({ type: 'blob' });
+        saveAs(content, `${signatureName}_Signature.zip`);
+    };
+
+    return (
+        <button
+            onClick={handleExportZip}
+            style={{
+                padding: '10px 20px',
+                fontSize: '16px',
+                cursor: 'pointer',
+                backgroundColor: '#00AE5E',
+                color: '#fff',
+                marginTop: '10px'
+            }}
+        >
+            <FiDownload/>
+            Télécharger pour Ancien Outlook (.zip)
+        </button>
+    );
+}
+
+
 
 function ExportViaCopy({handleCopy}) {
     return (
@@ -91,6 +166,9 @@ function App() {
     const signatureRef = useRef(null);
     const [tab, setTab] = useState('inputs');
     const [exportTab, setExportTab] = useState('thunderbird');
+    const [showOutlookOldSteps, setShowOutlookOldSteps] = useState(false);
+    const [showOutlookNewSteps, setShowOutlookNewSteps] = useState(false);
+    const [showThunderbirdSteps, setShowThunderbirdSteps] = useState(false);
 
     const [width, setWidth] = useState(600);
     const [height, setHeight] = useState(235);
@@ -192,7 +270,7 @@ function App() {
 
             {
                 tab === 'inputs' && (
-                    <form style={{backgroundColor: 'white', padding: '2rem', width: 450, borderRadius: '0.5rem', textAlign: 'left'}}>
+                    <form className={"form_window"} style={{backgroundColor: 'white', padding: '2rem', borderRadius: '0.5rem', textAlign: 'left'}}>
                         <div style={{display: 'flex', flexDirection: 'column', gap: '0.5rem'}}>
                             <div style={{marginBottom: 10}}>
                                 <label>
@@ -283,7 +361,7 @@ function App() {
 
             {
                 tab === 'export' && (
-                    <div style={{backgroundColor: 'white', padding: '2rem', width: 450, borderRadius: '0.5rem', textAlign: 'left', display:'flex', flexDirection:'column', gap:'0.5rem'}}>
+                    <div className={"export_window"} style={{backgroundColor: 'white', padding: '2rem', borderRadius: '0.5rem', textAlign: 'left', display:'flex', flexDirection:'column', gap:'0.5rem'}}>
 
                         <div className={"export_tabs"}>
                             <label className={"export_tab"}>
@@ -320,11 +398,29 @@ function App() {
 
                         {
                             exportTab === 'thunderbird' && (
-                                <div style={{display: 'flex', flexDirection:'column', gap: '0.5rem'}}>
+                                <div style={{display: 'flex', flexDirection: 'column', gap: '0.5rem'}}>
                                     <h3>Thunderbird</h3>
                                     <p>Pour Thunderbird, cliquez sur le bouton ci-dessous.</p>
 
                                     <p>Téléchargez la signature au format HTML.</p>
+                                    <div style={{display: 'flex', flexDirection: 'column', gap: '0.5rem', backgroundColor: '#f0f0f0', padding: '10px 15px', borderRadius: '5px'}} className={"outlook_steps"}
+                                         onClick={() => setShowThunderbirdSteps(!showThunderbirdSteps)}>
+                                        <div style={{display: 'flex', alignItems: 'center', cursor: 'pointer', gap: '0.5rem'}}>
+                                            {showThunderbirdSteps ? <FaChevronUp/> : <FaChevronDown/>}
+                                            <p style={{margin: 0}}>Démarches à suivre</p>
+                                        </div>
+
+                                        {
+                                            showThunderbirdSteps && (
+                                                <ol>
+                                                    <li>Ouvrez Thunderbird.</li>
+                                                    <li>Allez dans "Outils" > "Paramètres des comptes".</li>
+                                                    <li>Sélectionnez le compte pour lequel vous souhaitez ajouter la signature.</li>
+                                                    <li> Activez "Apposer la signature à partir d'un fichier" et sélectionnez le fichier HTML que vous avez téléchargé.</li>
+                                                </ol>
+                                            )
+                                        }
+                                    </div>
                                     <ExportViaDownloadHTML signatureRef={signatureRef} firstname={firstName} lastname={lastName}/>
                                 </div>
                             )
@@ -332,10 +428,56 @@ function App() {
 
                         {
                             exportTab === 'outlook' && (
-                                <div style={{display: 'flex', flexDirection:'column', gap: '0.5rem'}}>
+                                <div style={{display: 'flex', flexDirection: 'column', gap: '0.5rem'}}>
                                     <h3>Outlook</h3>
-                                    <p>Pour Outlook, cliquez sur le bouton ci-dessous.</p>
+                                    <p><strong>Nouvelle version Outlook :</strong> (copier/coller directement)</p>
+
+                                    <div style={{display: 'flex', flexDirection: 'column', gap: '0.5rem', backgroundColor: '#f0f0f0', padding: '10px 15px', borderRadius: '5px'}} className={"outlook_steps"}
+                                         onClick={() => setShowOutlookNewSteps(!showOutlookNewSteps)}>
+                                        <div style={{display: 'flex', alignItems: 'center', cursor: 'pointer', gap: '0.5rem'}}>
+                                            {showOutlookNewSteps ? <FaChevronUp/> : <FaChevronDown/>}
+                                            <p style={{margin: 0}}>Démarches à suivre</p>
+                                        </div>
+
+                                        {
+                                            showOutlookNewSteps && (
+                                                <ol>
+                                                    <li>Ouvrez Outlook.</li>
+                                                    <li>Allez dans "Fichier" > "Options" > "Courrier" > "Signatures".</li>
+                                                    <li>Cliquez sur "Nouveau" et donnez un nom à votre signature.</li>
+                                                    <li>Collez la signature ci-dessous dans le champ de texte.</li>
+                                                    <li>Enregistrez et fermez la fenêtre.</li>
+                                                </ol>
+                                            )
+                                        }
+                                    </div>
+
                                     <ExportViaCopy handleCopy={handleCopy}/>
+                                    <br/>
+                                    <p><strong>Ancienne version Outlook :</strong> (ZIP à glisser dans le dossier Signatures)</p>
+                                    <div style={{display: 'flex', flexDirection: 'column', gap: '0.5rem', backgroundColor: '#f0f0f0', padding: '10px 15px', borderRadius: '5px'}} className={"outlook_steps"}
+                                         onClick={() => setShowOutlookOldSteps(!showOutlookOldSteps)}>
+                                        <div style={{display: 'flex', alignItems: 'center', cursor: 'pointer', gap: '0.5rem'}}>
+                                            {showOutlookOldSteps ? <FaChevronUp/> : <FaChevronDown/>}
+                                            <p style={{margin: 0}}>Démarches à suivre</p>
+                                        </div>
+
+                                        {
+                                            showOutlookOldSteps && (
+                                                <ol>
+                                                    <li>Téléchargez la signature au format ZIP.</li>
+                                                    <li>Décompressez le dossier ZIP.</li>
+                                                    <li>Ouvrez "C:\Users\VotreNom\AppData\Roaming\Microsoft\Signatures"</li>
+                                                    <li>Glissez le dossier décompressé dans le dossier Signatures.</li>
+                                                    <li>Ouvrez Outlook et allez dans "Fichier" > "Options" > "Mail" > "Signatures".</li>
+                                                    <li>Choisissez la signature que vous venez d'ajouter.</li>
+                                                </ol>
+                                            )
+                                        }
+                                    </div>
+
+
+                                    <ExportViaOutlookZip signatureRef={signatureRef} additionalContent={additionalContent} firstname={firstName} lastname={lastName}/>
                                 </div>
                             )
                         }
@@ -377,7 +519,7 @@ function App() {
                                 <tr>
                                     <td style={{height: 0}}>
                                         <table cellPadding="0" cellSpacing="0" style={{color: '#fff', width: '100%'}}>
-                                            <tbody>
+                                        <tbody>
                                             <tr>
                                                 <td style={{padding: '20px 0 0 25px'}}>
                                                     <h1

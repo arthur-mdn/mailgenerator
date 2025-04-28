@@ -130,6 +130,9 @@ button:focus-visible {
   color: white;
 }
 
+.export_window{
+  width: 700px;
+}
 .export_tabs{
   display: flex;
     gap: 0.5rem;
@@ -157,4 +160,23 @@ button:focus-visible {
 .export_tab:has(input[type="radio"]:checked) {
   background-color: rgb(0, 174, 94);
   color: white;
+}
+
+.form_window{
+  width: 450px;
+}
+
+@media (max-width: 768px) {
+  body{
+    place-items: flex-start;
+    padding-top: 1rem;
+  }
+  #root{
+    width: 100%;
+    padding: 0!important;
+  }
+  .export_window, .form_window{
+    width: 100%;
+    border-radius: 0!important;
+  }
 }
