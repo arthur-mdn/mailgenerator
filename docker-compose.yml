@@ -3,8 +3,8 @@ services:
     build: ./client
     container_name: mailgenerator-client
     image: mailgenerator-client
-    ports:
-      - "${CLIENT_PORT}:${CLIENT_PORT}"
+    expose:
+      - "${CLIENT_PORT}"
     volumes:
       - ./client:/app
       - /app/node_modules
@@ -22,8 +22,8 @@ services:
     build: ./server
     container_name: mailgenerator-server
     image: mailgenerator-server
-    ports:
-      - "${SERVER_PORT}:${SERVER_PORT}"
+    expose:
+      - "${SERVER_PORT}"
     volumes:
       - ./server:/app
       - /app/node_modules
