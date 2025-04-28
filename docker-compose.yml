@@ -1,22 +1,35 @@
 services:
   client:
     build: ./client
+    container_name: mailgenerator-client
     ports:
       - "5173:5173"
     volumes:
       - ./client:/app
       - /app/node_modules
     environment:
-      - VITE_API_URL=http://localhost:3001
+      - VITE_API_URL=${SERVER_URL}
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.DisplayHub-admin.rule=Host(`${CLIENT_URL}`)"
+      - "traefik.http.routers.DisplayHub-admin.entrypoints=websecure"
+      - "traefik.http.routers.DisplayHub-admin.tls.certresolver=myresolver"
     depends_on:
       - server
 
   server:
     build: ./server
+    container_name: mailgenerator-server
     ports:
       - "3001:3001"
     volumes:
       - ./server:/app
       - /app/node_modules
     environment:
-      - CLIENT_URL=http://localhost:5173
+      - CLIENT_URL=${VITE_CLIENT_URL}
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.DisplayHub-server.rule=Host(`${SERVER_URL}`)"
+      - "traefik.http.services.DisplayHub-server.loadbalancer.server.port=3001"
+      - "traefik.http.routers.DisplayHub-server.entrypoints=websecure"
+      - "traefik.http.routers.DisplayHub-server.tls.certresolver=myresolver"
