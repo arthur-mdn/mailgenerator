@@ -43,7 +43,7 @@ function ExportViaDownloadHTML({signatureRef, lastname, firstname}) {
     )
 }
 
-function ExportViaOutlookZip({ signatureRef, additionalContent, firstname, lastname }) {
+function ExportViaOutlookZip({ signatureRef, additionalContent, firstname, lastname, role, phone, mobile }) {
 
     function escapeRegExp(string) {
         return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
@@ -57,10 +57,16 @@ function ExportViaOutlookZip({ signatureRef, additionalContent, firstname, lastn
             return;
         }
 
+        let _firstname = firstname || 'Arthur';
+        let _lastname = lastname || 'Mondon';
+        let _role = role || 'Pôle expertise et développement';
+        let _phone = phone || '+33 4 90 65 65 86';
+        let _mobile = mobile || '';
+
         const zip = new JSZip();
 
-        let pseudo = `${firstname} ${lastname}`.replace(/[^a-zA-Z0-9]/g, '_') || 'Signature';
-        const signatureName = `${pseudo} (${email})`; // <-- Outlook veut ça
+        let pseudo = `${_firstname} ${_lastname}`.replace(/[^a-zA-Z0-9]/g, '_') || 'Signature';
+        const signatureName = `${pseudo} (${email})`;
 
         const folder = zip.folder(signatureName);
 
@@ -82,11 +88,16 @@ function ExportViaOutlookZip({ signatureRef, additionalContent, firstname, lastn
         });
 
         folder.file(`${signatureName}.htm`, html);
-        folder.file(`${signatureName}.txt`, '');
+
+        let textContent = `${_firstname} ${_lastname}\n${_role}`;
+        if (_phone) textContent += `\nTel: ${_phone}`;
+        if (_mobile) textContent += `\nMobile: ${_mobile}`;
+
+        folder.file(`${signatureName}.txt`, textContent);
         folder.file(`${signatureName}.rtf`, '');
 
         for (const img of imagesToInclude) {
-            const base64Data = img.base64.split(',')[1]; // Remove the "data:image/png;base64,"
+            const base64Data = img.base64.split(',')[1];
             folder.file(img.name, base64Data, { base64: true });
         }
 
@@ -477,7 +488,7 @@ function App() {
                                     </div>
 
 
-                                    <ExportViaOutlookZip signatureRef={signatureRef} additionalContent={additionalContent} firstname={firstName} lastname={lastName}/>
+                                    <ExportViaOutlookZip signatureRef={signatureRef} additionalContent={additionalContent} firstname={firstName} lastname={lastName} role={role} phone={phone} mobile={mobile}/>
                                 </div>
                             )
                         }
