@@ -1,5 +1,5 @@
 services:
-  client:
+  MailGenerator-client:
     build: ./client
     container_name: mailgenerator-client
     ports:
@@ -17,7 +17,7 @@ services:
     depends_on:
       - server
 
-  server:
+  MailGenerator-server:
     build: ./server
     container_name: mailgenerator-server
     ports:
