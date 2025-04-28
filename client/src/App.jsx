@@ -5,6 +5,16 @@ import SelectAdditionalContent from "./components/SelectAdditionalContent.jsx";
 import { FiSliders, FiShare, FiDownload, FiClipboard, FiCode } from 'react-icons/fi';
 import { PiMicrosoftOutlookLogoFill } from "react-icons/pi";
 import { SiThunderbird } from "react-icons/si";
+import { Helmet } from 'react-helmet';
+
+import { edissyum } from './models/edissyum';
+
+const models = {
+    edissyum: edissyum
+};
+
+const pathname = window.location.pathname.replace('/', '');
+const activeModel = models[pathname] || 'notfound';
 
 function ExportViaDownloadHTML({signatureRef, lastname, firstname}) {
     let pseudo = `${firstname} ${lastname}`;
@@ -149,8 +159,23 @@ function App() {
         }
     }
 
+    if(activeModel === 'notfound'){
+        return (
+            <div style={{fontFamily: 'Arial, sans-serif', display:'flex', flexDirection:'column', gap:'1rem', alignItems:'center'}}>
+                <h1>Modèle non trouvé</h1>
+                <p>Le modèle que vous avez demandé n'existe pas.</p>
+            </div>
+        )
+    }
+
     return (
         <div style={{fontFamily: 'Arial, sans-serif', display:'flex', flexDirection:'column', gap:'1rem', alignItems:'center'}}>
+            <Helmet>
+                <title>Signature {activeModel.name}</title>
+                <meta name="description" content="Générateur de signature email" />
+                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                <link rel="icon" href={activeModel.favicon} />
+            </Helmet>
             <div className={"tabs"}>
 
                 <label htmlFor={"tab_inputs"} className={"tab"}>
@@ -338,7 +363,7 @@ function App() {
                         fontFamily: 'Arial, sans-serif',
                         fontSize: 14,
                         color: '#fff',
-                        backgroundColor: '#00AE5E',
+                        backgroundColor: activeModel.primaryColor,
                         borderRadius: 10,
                         width: width,
                         height: height,
@@ -409,7 +434,7 @@ function App() {
                                                 </td>
                                                 <td style={{textAlign: 'left', paddingTop: 3}}>
                                                     <a
-                                                        href="tel:+33490409186"
+                                                        href={`tel:${phone && phone !== '' ? phone : activeModel.phone.replace(/ /g, '')}`}
                                                         style={{
                                                             color: 'white',
                                                             textDecoration: 'none',
@@ -417,7 +442,7 @@ function App() {
                                                             fontFamily: 'Arial, sans-serif',
                                                         }}
                                                     >
-                                                        {phone && phone !== '' ? phone : '+33 4 90 65 65 86'}
+                                                        {phone && phone !== '' ? phone : activeModel.phone}
                                                     </a>
                                                 </td>
                                             </tr>
@@ -440,7 +465,7 @@ function App() {
                                                     </td>
                                                     <td style={{textAlign: 'left', paddingTop: 0}}>
                                                         <a
-                                                            href="tel:+33490409186"
+                                                            href={`tel:${mobile.replace(/ /g, '')}`}
                                                             style={{
                                                                 color: 'white',
                                                                 textDecoration: 'none',
@@ -492,7 +517,7 @@ function App() {
                                     fontSize: 14,
                                     padding: '15px 0 15px 15px',
                                     color: '#000',
-                                    backgroundColor: '#006633',
+                                    backgroundColor: activeModel.secondaryColor,
                                     width: '100%',
                                     height: '100%',
                                     borderRadius: 10,
@@ -501,11 +526,11 @@ function App() {
                                 <tbody>
                                 <tr style={{verticalAlign: 'middle'}}>
                                     <td style={{textAlign: 'left'}}>
-                                        <a href="https://edissyum.com/" target="_blank">
+                                        <a href={activeModel.website} target="_blank">
                                             <img
-                                                src={icons.edissyum}
-                                                style={{width: 200, height: 32, paddingLeft: 15, verticalAlign: 'middle'}}
-                                                alt="edissyum"
+                                                src={activeModel.logo.src}
+                                                style={{width: activeModel.logo.width, height: activeModel.logo.height, paddingLeft: 15, verticalAlign: 'middle'}}
+                                                alt={activeModel.name}
                                             />
                                         </a>
                                     </td>
@@ -515,10 +540,10 @@ function App() {
                                             <tr>
                                                 <td style={{textAlign: 'right', padding: 0}}>
                                                     <a
-                                                        href="https://edissyum.com/"
+                                                        href={activeModel.website}
                                                         target="_blank"
                                                         style={{
-                                                            color: '#D2FBD0',
+                                                            color: activeModel.thirdColor,
                                                             textDecoration: 'none',
                                                             fontSize: 14,
                                                             lineHeight: '14px',
@@ -526,17 +551,17 @@ function App() {
                                                             verticalAlign: 'bottom',
                                                         }}
                                                     >
-                                                        https://edissyum.com
+                                                        {activeModel.website}
                                                     </a>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td style={{textAlign: 'right', padding: 0}}>
                                                     <a
-                                                        href="https://open-capture.com/"
+                                                        href={activeModel.secondaryWebsite}
                                                         target="_blank"
                                                         style={{
-                                                            color: '#D2FBD0',
+                                                            color: activeModel.thirdColor,
                                                             textDecoration: 'none',
                                                             fontSize: 14,
                                                             lineHeight: '14px',
@@ -544,7 +569,7 @@ function App() {
                                                             verticalAlign: 'top',
                                                         }}
                                                     >
-                                                        https://open-capture.com
+                                                        {activeModel.secondaryWebsite}
                                                     </a>
                                                 </td>
                                             </tr>
@@ -558,11 +583,11 @@ function App() {
                                                 <tr>
                                                     <td style={{textAlign: 'right'}}>
                                                         <a
-                                                            href="https://facebook.com/edissyum/"
+                                                            href={activeModel.socialNetworks.facebook}
                                                             target="_blank"
                                                             style={{
                                                                 textDecoration: 'none',
-                                                                backgroundColor: '#00AE5E',
+                                                                backgroundColor: activeModel.primaryColor,
                                                                 width: 30,
                                                                 height: 30,
                                                                 display: 'block',
@@ -576,11 +601,11 @@ function App() {
                                                     </td>
                                                     <td style={{textAlign: 'right'}}>
                                                         <a
-                                                            href="https://linkedin.com/company/edissyum-consulting/"
+                                                            href={activeModel.socialNetworks.linkedin}
                                                             target="_blank"
                                                             style={{
                                                                 textDecoration: 'none',
-                                                                backgroundColor: '#00AE5E',
+                                                                backgroundColor: activeModel.primaryColor,
                                                                 width: 30,
                                                                 height: 30,
                                                                 display: 'block',
@@ -594,11 +619,11 @@ function App() {
                                                     </td>
                                                     <td style={{textAlign: 'right'}}>
                                                         <a
-                                                            href="https://youtube.com/channel/UCQh4DnAakzDXuMXtMK2BTpQ/"
+                                                            href={activeModel.socialNetworks.youtube}
                                                             target="_blank"
                                                             style={{
                                                                 textDecoration: 'none',
-                                                                backgroundColor: '#00AE5E',
+                                                                backgroundColor: activeModel.primaryColor,
                                                                 width: 30,
                                                                 height: 30,
                                                                 display: 'block',
