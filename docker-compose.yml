@@ -38,3 +38,7 @@ services:
       - "traefik.http.services.MailGenerator-server.loadbalancer.server.scheme=http"
       - "traefik.http.routers.MailGenerator-server.entrypoints=websecure"
       - "traefik.http.routers.MailGenerator-server.tls.certresolver=myresolver"
+
+volumes:
+  mailgenerator-uploads:
+  mailgenerator-data:
