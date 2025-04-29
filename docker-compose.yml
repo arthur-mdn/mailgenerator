@@ -24,6 +24,8 @@ services:
     volumes:
       - ./server:/app
       - /app/node_modules
+      - mailgenerator-uploads:/app/uploads
+      - mailgenerator-data:/app/data
     ports:
       - "${SERVER_PORT}:${SERVER_PORT}"
     environment:
