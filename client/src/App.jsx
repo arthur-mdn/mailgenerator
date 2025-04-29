@@ -707,6 +707,8 @@ function App() {
                                                     <img
                                                         src={activeModel.logo.src}
                                                         style={{width: activeModel.logo.width, height: activeModel.logo.height, paddingLeft: 15, verticalAlign: 'middle'}}
+                                                        width={activeModel.logo.width}
+                                                        height={activeModel.logo.height}
                                                         alt={activeModel.name}
                                                     />
                                                 </a>
