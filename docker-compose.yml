@@ -32,5 +32,6 @@ services:
       - "traefik.enable=true"
       - "traefik.http.routers.MailGenerator-server.rule=Host(`${SERVER_DOMAIN}`)"
       - "traefik.http.services.MailGenerator-server.loadbalancer.server.port=${SERVER_PORT}"
+      - "traefik.http.services.MailGenerator-server.loadbalancer.server.scheme=http"
       - "traefik.http.routers.MailGenerator-server.entrypoints=websecure"
       - "traefik.http.routers.MailGenerator-server.tls.certresolver=myresolver"
