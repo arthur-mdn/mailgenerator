@@ -28,6 +28,7 @@ services:
       - "${SERVER_PORT}:${SERVER_PORT}"
     environment:
       - CLIENT_URL=${CLIENT_URL}
+      - SERVER_PORT=${SERVER_PORT}
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.MailGenerator-server.rule=Host(`${SERVER_DOMAIN}`)"
