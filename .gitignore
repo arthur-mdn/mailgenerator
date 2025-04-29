@@ -8,3 +8,4 @@
 
 docker-compose.override.yml
 server/data/modelsAuth.json
+server/data/additionalContents.json
