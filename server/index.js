@@ -10,7 +10,7 @@ const { v4: uuidv4 } = require('uuid');
 dotenv.config();
 
 const app = express();
-const port = process.env.PORT || 3001;
+const port = process.env.SERVER_PORT || 3001;
 const uploadFolder = path.join(__dirname, 'uploads');
 const dataFile = path.join(__dirname, 'data', 'additionalContents.json');
 
