@@ -22,6 +22,21 @@ const models = {
 const pathname = window.location.pathname.replace('/', '');
 const activeModel = models[pathname] || 'notfound';
 
+const generateFullHTML = (bodyContent) => {
+    return `
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="color-scheme" content="light dark">
+  <title>Signature</title>
+</head>
+<body style="margin:0; padding:0;">
+  ${bodyContent}
+</body>
+</html>`;
+};
+
 function ExportViaDownloadHTML({signatureRef, lastname, firstname}) {
     let pseudo = `${firstname} ${lastname}`;
     pseudo = pseudo.replace(/[^a-zA-Z0-9]/g, '_');
@@ -31,9 +46,12 @@ function ExportViaDownloadHTML({signatureRef, lastname, firstname}) {
     else {
         pseudo = 'Signature_' + pseudo;
     }
+
+    const htmlContent = generateFullHTML(signatureRef.current ? signatureRef.current.innerHTML : '');
+
     return (
         <a
-            href={`data:text/html;charset=utf-8,${encodeURIComponent(signatureRef.current ? signatureRef.current.innerHTML : '')}`}
+            href={`data:text/html;charset=utf-8,${encodeURIComponent(htmlContent)}`}
             download={`${pseudo}.html`}
             style={{textDecoration: 'none', color: '#00AE5E'}}
         >
@@ -70,6 +88,7 @@ function ExportViaOutlookZip({ signatureRef, additionalContent, getFormData }) {
         const imagesFolder = signatureFolder.folder(`${signatureName}_files`);
 
         let html = signatureRef.current.innerHTML;
+        html = generateFullHTML(html);
 
         const imagesToInclude = [
             { base64: icons.edissyum, name: 'logo.png' },
@@ -150,7 +169,7 @@ function ExportViaCustom({signatureRef}){
         <>
             <textarea
                 style={{width: '100%', height: 200, resize: 'none'}}
-                value={signatureRef.current ? signatureRef.current.innerHTML : ''}
+                value={signatureRef.current ? generateFullHTML(signatureRef.current.innerHTML) : ''}
                 readOnly
                 onClick={() => {
                     const range = document.createRange();
@@ -540,6 +559,7 @@ function App() {
                                     <table
                                         cellPadding="0"
                                         cellSpacing="0"
+                                        bgcolor={activeModel.primaryColor}
                                         style={{
                                             fontFamily: 'Arial, sans-serif',
                                             fontSize: 14,
@@ -693,6 +713,7 @@ function App() {
                                                 <table
                                                     cellPadding="0"
                                                     cellSpacing="0"
+                                                    bgcolor={activeModel.secondaryColor}
                                                     style={{
                                                         fontFamily: 'Arial, sans-serif',
                                                         fontSize: 14,
