@@ -9,3 +9,6 @@
 docker-compose.override.yml
 server/data/modelsAuth.json
 server/data/additionalContents.json
+
+server/uploads/*
+!server/uploads/.eazfez543fezr3423fZER.png
