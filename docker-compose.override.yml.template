@@ -12,3 +12,12 @@ services:
   MailGenerator-server:
     ports:
       - "${SERVER_PORT}:${SERVER_PORT}"
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    volumes:
+      - ./server:/app
+      - /app/node_modules
+    environment:
+      - CLIENT_URL=${CLIENT_URL}
+      - SERVER_PORT=${SERVER_PORT}
