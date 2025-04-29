@@ -142,7 +142,7 @@ export default function SelectAdditionalContent({ onSelect, model }) {
 
                     style={{
                         border: '2px dashed #ccc',
-                        padding: '5px',
+                        padding: '20px',
                         cursor: 'pointer',
                         borderRadius: '8px',
                         transition: 'border 0.3s',

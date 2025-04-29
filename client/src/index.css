@@ -162,7 +162,7 @@ button:focus-visible {
 }
 
 .form_window{
-  width: 450px;
+  width: 700px;
 }
 
 @media (max-width: 768px) {
