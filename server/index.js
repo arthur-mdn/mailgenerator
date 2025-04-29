@@ -97,7 +97,7 @@ app.post('/upload_image', (req, res) => {
 
             const contents = JSON.parse(fs.readFileSync(dataFile));
 
-            const isDefault = contents.filter(c => c.model === model).length === 0 || setByDefault === 'true';
+            const shouldBeDefault = (contents.filter(c => c.model === model).length === 0) || (setByDefault === 'true');
 
             const newImage = {
                 id: uuidv4(),
@@ -106,16 +106,18 @@ app.post('/upload_image', (req, res) => {
                 originalname: req.file.originalname,
                 url: `uploads/${req.file.filename}`,
                 model,
-                isDefault,
+                isDefault: shouldBeDefault,
             };
 
             contents.push(newImage);
 
-            contents.forEach(item => {
-                if (item.model === model) {
-                    item.isDefault = item.filename === newImage.filename;
-                }
-            });
+            if (shouldBeDefault) {
+                contents.forEach(item => {
+                    if (item.model === model) {
+                        item.isDefault = item.id === newImage.id;
+                    }
+                });
+            }
 
             await writeData(dataFile, contents);
 

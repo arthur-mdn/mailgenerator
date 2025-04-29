@@ -12,6 +12,8 @@ import { saveAs } from 'file-saver';
 import { edissyum } from './models/edissyum';
 import {FaChevronCircleDown, FaChevronUp} from "react-icons/fa";
 import {FaChevronDown} from "react-icons/fa6";
+import {MdAdminPanelSettings} from "react-icons/md";
+import AdminUploadModal from "./components/AdminUploadModal.jsx";
 
 const models = {
     edissyum: edissyum
@@ -277,6 +279,11 @@ function App() {
                     <input type={"radio"} name={"tab"} id={"tab_export"} value={"export"} checked={tab === 'export'} onChange={() => setTab('export')}/>
                     Exportation
                 </label>
+                <label htmlFor={"tab_admin"} className={"tab"}>
+                    <MdAdminPanelSettings/>
+                    <input type={"radio"} name={"tab"} id={"tab_admin"} value={"admin"} checked={tab === 'admin'} onChange={() => setTab('admin')}/>
+                    Administration
+                </label>
             </div>
 
             {
@@ -517,301 +524,309 @@ function App() {
 
                 )
             }
+            {
+                tab === 'admin' && (
+                   <AdminUploadModal modelKey={activeModel.name.toLowerCase()}/>
+                )
+            }
 
-
-            <div ref={signatureRef}>
-                <table
-                    cellPadding="0"
-                    cellSpacing="0"
-                    style={{
-                        fontFamily: 'Arial, sans-serif',
-                        fontSize: 14,
-                        color: '#fff',
-                        backgroundColor: activeModel.primaryColor,
-                        borderRadius: 10,
-                        width: width,
-                        height: height,
-                    }}
-                >
-                    <tbody>
-                    <tr>
-                        <td style={{verticalAlign: 'top'}}>
-                            <table cellPadding="0" cellSpacing="0" style={{width: '100%'}}>
-                                <tbody>
-                                <tr>
-                                    <td style={{height: 0}}>
-                                        <table cellPadding="0" cellSpacing="0" style={{color: '#fff', width: '100%'}}>
+            {
+                tab !== 'admin' && (
+                    <div ref={signatureRef}>
+                        <table
+                            cellPadding="0"
+                            cellSpacing="0"
+                            style={{
+                                fontFamily: 'Arial, sans-serif',
+                                fontSize: 14,
+                                color: '#fff',
+                                backgroundColor: activeModel.primaryColor,
+                                borderRadius: 10,
+                                width: width,
+                                height: height,
+                            }}
+                        >
+                            <tbody>
+                            <tr>
+                                <td style={{verticalAlign: 'top'}}>
+                                    <table cellPadding="0" cellSpacing="0" style={{width: '100%'}}>
                                         <tbody>
-                                            <tr>
-                                                <td style={{padding: '20px 0 0 25px'}}>
-                                                    <h1
-                                                        style={{
-                                                            margin: 0,
-                                                            fontFamily: 'Arial, sans-serif',
-                                                            textAlign: 'left',
-                                                            fontSize: 26,
-                                                        }}
-                                                    >
-                                                        {firstName && firstName !== '' ? firstName : 'Arthur'}
-                                                        {' '}
-                                                        {lastName && lastName !== '' ? ' ' + lastName : 'Mondon'}
-                                                    </h1>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td style={{padding: '0 0 0 25px'}}>
-                                                    <h3
-                                                        style={{
-                                                            fontWeight: 'normal',
-                                                            margin: 0,
-                                                            marginTop: 8,
-                                                            fontFamily: 'Arial, sans-serif',
-                                                            textAlign: 'left',
-                                                            fontSize: 18,
-                                                            lineHeight: '18px',
-                                                        }}
-                                                    >
-                                                        {role && role !== '' ? role : 'Pôle expertise et développement'}
-                                                    </h3>
-                                                </td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </td>
-                                </tr>
-                                <tr style={{height: 0}}>
-
-                                    <td style={(mobile.trim() === '') ? {padding: '10px 0 20px 0'} : {padding: '10px 0 0 0'}}>
-                                        <table
-                                            cellPadding="0"
-                                            cellSpacing="0"
-                                            style={{width: '100%', textAlign: 'center'}}
-                                        >
-                                            <tbody>
-                                            <tr>
-                                                <td style={{padding: '0 0 0 25px', width: 25}}>
-                                                    <img
-                                                        src={icons.phone}
-                                                        alt="Phone"
-                                                        style={{width: 22, verticalAlign: 'middle'}}
-                                                    />
-                                                </td>
-                                                <td style={{textAlign: 'left', paddingTop: 3}}>
-                                                    <a
-                                                        href={`tel:${phone && phone !== '' ? phone : activeModel.phone.replace(/ /g, '')}`}
-                                                        style={{
-                                                            color: 'white',
-                                                            textDecoration: 'none',
-                                                            textAlign: 'left',
-                                                            fontFamily: 'Arial, sans-serif',
-                                                        }}
-                                                    >
-                                                        {phone && phone !== '' ? phone : activeModel.phone}
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </td>
-                                </tr>
-                                {(mobile && mobile.trim() !== '') && (
-                                    <tr>
-                                        <td style={{padding: '5px 0 20px 0'}}>
-                                            <table cellPadding="0" cellSpacing="0" style={{color: '#fff'}}>
-                                                <tbody>
-                                                <tr>
-                                                    <td style={{padding: '0 0 0 25px', width: 25}}>
-                                                        <img
-                                                            src={icons.tel}
-                                                            style={{width: 22, verticalAlign: 'middle'}}
-                                                            alt="tel"
-                                                        />
-                                                    </td>
-                                                    <td style={{textAlign: 'left', paddingTop: 0}}>
-                                                        <a
-                                                            href={`tel:${mobile.replace(/ /g, '')}`}
-                                                            style={{
-                                                                color: 'white',
-                                                                textDecoration: 'none',
-                                                                fontFamily: 'Arial, sans-serif',
-                                                            }}
-                                                        >
-                                                            {mobile}
-                                                        </a>
-                                                    </td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                        </td>
-                                    </tr>
-                                )}
-
-                                <tr>
-
-                                </tr>
-
-                                </tbody>
-                            </table>
-                        </td>
-                        {showAdditionalContent && (
-                            <td style={{width:0}}>
-                                <table style={{width: 320, height: 180, marginLeft: 'auto'}}>
-                                    <tbody>
                                         <tr>
-                                            <td style={{width: '100%', height: '100%', padding: "25px", textAlign: 'center', overflow: 'hidden'}} valign="middle">
-                                                <img
-                                                    src={`${additionalContent.includes('base64') ? additionalContent : `data:image/png;base64,${additionalContent}`}`}
-                                                    alt="Signature Arthur Mondon"
-                                                    style={{width: '100%', height: '100%', objectFit: 'cover', border: 0, verticalAlign: 'middle', borderRadius: 10}}/>
+                                            <td style={{height: 0}}>
+                                                <table cellPadding="0" cellSpacing="0" style={{color: '#fff', width: '100%'}}>
+                                                    <tbody>
+                                                    <tr>
+                                                        <td style={{padding: '20px 0 0 25px'}}>
+                                                            <h1
+                                                                style={{
+                                                                    margin: 0,
+                                                                    fontFamily: 'Arial, sans-serif',
+                                                                    textAlign: 'left',
+                                                                    fontSize: 26,
+                                                                }}
+                                                            >
+                                                                {firstName && firstName !== '' ? firstName : 'Arthur'}
+                                                                {' '}
+                                                                {lastName && lastName !== '' ? ' ' + lastName : 'Mondon'}
+                                                            </h1>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style={{padding: '0 0 0 25px'}}>
+                                                            <h3
+                                                                style={{
+                                                                    fontWeight: 'normal',
+                                                                    margin: 0,
+                                                                    marginTop: 8,
+                                                                    fontFamily: 'Arial, sans-serif',
+                                                                    textAlign: 'left',
+                                                                    fontSize: 18,
+                                                                    lineHeight: '18px',
+                                                                }}
+                                                            >
+                                                                {role && role !== '' ? role : 'Pôle expertise et développement'}
+                                                            </h3>
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
                                             </td>
                                         </tr>
-                                    </tbody>
-                                </table>
-                            </td>
-                            )}
-                    </tr>
+                                        <tr style={{height: 0}}>
 
-                    <tr style={{verticalAlign: 'bottom'}}>
-                        <td colSpan={2}>
-                            <table
-                                cellPadding="0"
-                                cellSpacing="0"
-                                style={{
-                                    fontFamily: 'Arial, sans-serif',
-                                    fontSize: 14,
-                                    padding: '15px 0 15px 15px',
-                                    color: '#000',
-                                    backgroundColor: activeModel.secondaryColor,
-                                    width: '100%',
-                                    height: '100%',
-                                    borderRadius: 10,
-                                }}
-                            >
-                                <tbody>
-                                <tr style={{verticalAlign: 'middle'}}>
-                                    <td style={{textAlign: 'left'}}>
-                                        <a href={activeModel.website} target="_blank">
-                                            <img
-                                                src={activeModel.logo.src}
-                                                style={{width: activeModel.logo.width, height: activeModel.logo.height, paddingLeft: 15, verticalAlign: 'middle'}}
-                                                alt={activeModel.name}
-                                            />
-                                        </a>
-                                    </td>
-                                    <td style={(!showSocialNetworks) ? {paddingRight: 15, width: '100%'} : {paddingRight: 10, width: '100%'}}>
-                                        <table style={{width: '100%'}}>
-                                            <tbody>
+                                            <td style={(mobile.trim() === '') ? {padding: '10px 0 20px 0'} : {padding: '10px 0 0 0'}}>
+                                                <table
+                                                    cellPadding="0"
+                                                    cellSpacing="0"
+                                                    style={{width: '100%', textAlign: 'center'}}
+                                                >
+                                                    <tbody>
+                                                    <tr>
+                                                        <td style={{padding: '0 0 0 25px', width: 25}}>
+                                                            <img
+                                                                src={icons.phone}
+                                                                alt="Phone"
+                                                                style={{width: 22, verticalAlign: 'middle'}}
+                                                            />
+                                                        </td>
+                                                        <td style={{textAlign: 'left', paddingTop: 3}}>
+                                                            <a
+                                                                href={`tel:${phone && phone !== '' ? phone : activeModel.phone.replace(/ /g, '')}`}
+                                                                style={{
+                                                                    color: 'white',
+                                                                    textDecoration: 'none',
+                                                                    textAlign: 'left',
+                                                                    fontFamily: 'Arial, sans-serif',
+                                                                }}
+                                                            >
+                                                                {phone && phone !== '' ? phone : activeModel.phone}
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        {(mobile && mobile.trim() !== '') && (
                                             <tr>
-                                                <td style={{textAlign: 'right', padding: 0}}>
-                                                    <a
-                                                        href={activeModel.website}
-                                                        target="_blank"
-                                                        style={{
-                                                            color: activeModel.thirdColor,
-                                                            textDecoration: 'none',
-                                                            fontSize: 14,
-                                                            lineHeight: '14px',
-                                                            fontFamily: 'Arial, sans-serif',
-                                                            verticalAlign: 'bottom',
-                                                        }}
-                                                    >
-                                                        {activeModel.website}
-                                                    </a>
+                                                <td style={{padding: '5px 0 20px 0'}}>
+                                                    <table cellPadding="0" cellSpacing="0" style={{color: '#fff'}}>
+                                                        <tbody>
+                                                        <tr>
+                                                            <td style={{padding: '0 0 0 25px', width: 25}}>
+                                                                <img
+                                                                    src={icons.tel}
+                                                                    style={{width: 22, verticalAlign: 'middle'}}
+                                                                    alt="tel"
+                                                                />
+                                                            </td>
+                                                            <td style={{textAlign: 'left', paddingTop: 0}}>
+                                                                <a
+                                                                    href={`tel:${mobile.replace(/ /g, '')}`}
+                                                                    style={{
+                                                                        color: 'white',
+                                                                        textDecoration: 'none',
+                                                                        fontFamily: 'Arial, sans-serif',
+                                                                    }}
+                                                                >
+                                                                    {mobile}
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
                                                 </td>
                                             </tr>
+                                        )}
+
+                                        <tr>
+
+                                        </tr>
+
+                                        </tbody>
+                                    </table>
+                                </td>
+                                {showAdditionalContent && (
+                                    <td style={{width: 0}}>
+                                        <table style={{width: 320, height: 180, marginLeft: 'auto'}}>
+                                            <tbody>
                                             <tr>
-                                                <td style={{textAlign: 'right', padding: 0}}>
-                                                    <a
-                                                        href={activeModel.secondaryWebsite}
-                                                        target="_blank"
-                                                        style={{
-                                                            color: activeModel.thirdColor,
-                                                            textDecoration: 'none',
-                                                            fontSize: 14,
-                                                            lineHeight: '14px',
-                                                            fontFamily: 'Arial, sans-serif',
-                                                            verticalAlign: 'top',
-                                                        }}
-                                                    >
-                                                        {activeModel.secondaryWebsite}
-                                                    </a>
+                                                <td style={{width: '100%', height: '100%', padding: "25px", textAlign: 'center', overflow: 'hidden'}} valign="middle">
+                                                    <img
+                                                        src={`${additionalContent.includes('base64') ? additionalContent : `data:image/png;base64,${additionalContent}`}`}
+                                                        alt="Signature Arthur Mondon"
+                                                        style={{width: '100%', height: '100%', objectFit: 'cover', border: 0, verticalAlign: 'middle', borderRadius: 10}}/>
                                                 </td>
                                             </tr>
                                             </tbody>
                                         </table>
                                     </td>
-                                    {showSocialNetworks && (
-                                        <td style={{textAlign: 'right', verticalAlign: 'middle', paddingRight:15}}>
-                                            <table style={{width: '100%', verticalAlign: 'middle'}}>
-                                                <tbody>
-                                                <tr>
-                                                    <td style={{textAlign: 'right'}}>
-                                                        <a
-                                                            href={activeModel.socialNetworks.facebook}
-                                                            target="_blank"
-                                                            style={{
-                                                                textDecoration: 'none',
-                                                                backgroundColor: activeModel.primaryColor,
-                                                                width: 30,
-                                                                height: 30,
-                                                                display: 'block',
-                                                                borderRadius: 4,
-                                                                padding: 3,
-                                                            }}
-                                                            title="Facebook"
-                                                        >
-                                                            <img src={icons.facebook} style={{width: 30}} alt="facebook"/>
-                                                        </a>
-                                                    </td>
-                                                    <td style={{textAlign: 'right'}}>
-                                                        <a
-                                                            href={activeModel.socialNetworks.linkedin}
-                                                            target="_blank"
-                                                            style={{
-                                                                textDecoration: 'none',
-                                                                backgroundColor: activeModel.primaryColor,
-                                                                width: 30,
-                                                                height: 30,
-                                                                display: 'block',
-                                                                borderRadius: 4,
-                                                                padding: 3,
-                                                            }}
-                                                            title="LinkedIn"
-                                                        >
-                                                            <img src={icons.linkedin} style={{width: 30}} alt="linkedin"/>
-                                                        </a>
-                                                    </td>
-                                                    <td style={{textAlign: 'right'}}>
-                                                        <a
-                                                            href={activeModel.socialNetworks.youtube}
-                                                            target="_blank"
-                                                            style={{
-                                                                textDecoration: 'none',
-                                                                backgroundColor: activeModel.primaryColor,
-                                                                width: 30,
-                                                                height: 30,
-                                                                display: 'block',
-                                                                borderRadius: 4,
-                                                                padding: 3,
-                                                            }}
-                                                            title="YouTube"
-                                                        >
-                                                            <img src={icons.youtube} style={{width: 30}} alt="youtube"/>
-                                                        </a>
-                                                    </td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                        </td>
-                                    )}
-                                </tr>
-                                </tbody>
-                            </table>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
+                                )}
+                            </tr>
+
+                            <tr style={{verticalAlign: 'bottom'}}>
+                                <td colSpan={2}>
+                                    <table
+                                        cellPadding="0"
+                                        cellSpacing="0"
+                                        style={{
+                                            fontFamily: 'Arial, sans-serif',
+                                            fontSize: 14,
+                                            padding: '15px 0 15px 15px',
+                                            color: '#000',
+                                            backgroundColor: activeModel.secondaryColor,
+                                            width: '100%',
+                                            height: '100%',
+                                            borderRadius: 10,
+                                        }}
+                                    >
+                                        <tbody>
+                                        <tr style={{verticalAlign: 'middle'}}>
+                                            <td style={{textAlign: 'left'}}>
+                                                <a href={activeModel.website} target="_blank">
+                                                    <img
+                                                        src={activeModel.logo.src}
+                                                        style={{width: activeModel.logo.width, height: activeModel.logo.height, paddingLeft: 15, verticalAlign: 'middle'}}
+                                                        alt={activeModel.name}
+                                                    />
+                                                </a>
+                                            </td>
+                                            <td style={(!showSocialNetworks) ? {paddingRight: 15, width: '100%'} : {paddingRight: 10, width: '100%'}}>
+                                                <table style={{width: '100%'}}>
+                                                    <tbody>
+                                                    <tr>
+                                                        <td style={{textAlign: 'right', padding: 0}}>
+                                                            <a
+                                                                href={activeModel.website}
+                                                                target="_blank"
+                                                                style={{
+                                                                    color: activeModel.thirdColor,
+                                                                    textDecoration: 'none',
+                                                                    fontSize: 14,
+                                                                    lineHeight: '14px',
+                                                                    fontFamily: 'Arial, sans-serif',
+                                                                    verticalAlign: 'bottom',
+                                                                }}
+                                                            >
+                                                                {activeModel.website}
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style={{textAlign: 'right', padding: 0}}>
+                                                            <a
+                                                                href={activeModel.secondaryWebsite}
+                                                                target="_blank"
+                                                                style={{
+                                                                    color: activeModel.thirdColor,
+                                                                    textDecoration: 'none',
+                                                                    fontSize: 14,
+                                                                    lineHeight: '14px',
+                                                                    fontFamily: 'Arial, sans-serif',
+                                                                    verticalAlign: 'top',
+                                                                }}
+                                                            >
+                                                                {activeModel.secondaryWebsite}
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                            {showSocialNetworks && (
+                                                <td style={{textAlign: 'right', verticalAlign: 'middle', paddingRight: 15}}>
+                                                    <table style={{width: '100%', verticalAlign: 'middle'}}>
+                                                        <tbody>
+                                                        <tr>
+                                                            <td style={{textAlign: 'right'}}>
+                                                                <a
+                                                                    href={activeModel.socialNetworks.facebook}
+                                                                    target="_blank"
+                                                                    style={{
+                                                                        textDecoration: 'none',
+                                                                        backgroundColor: activeModel.primaryColor,
+                                                                        width: 30,
+                                                                        height: 30,
+                                                                        display: 'block',
+                                                                        borderRadius: 4,
+                                                                        padding: 3,
+                                                                    }}
+                                                                    title="Facebook"
+                                                                >
+                                                                    <img src={icons.facebook} style={{width: 30}} alt="facebook"/>
+                                                                </a>
+                                                            </td>
+                                                            <td style={{textAlign: 'right'}}>
+                                                                <a
+                                                                    href={activeModel.socialNetworks.linkedin}
+                                                                    target="_blank"
+                                                                    style={{
+                                                                        textDecoration: 'none',
+                                                                        backgroundColor: activeModel.primaryColor,
+                                                                        width: 30,
+                                                                        height: 30,
+                                                                        display: 'block',
+                                                                        borderRadius: 4,
+                                                                        padding: 3,
+                                                                    }}
+                                                                    title="LinkedIn"
+                                                                >
+                                                                    <img src={icons.linkedin} style={{width: 30}} alt="linkedin"/>
+                                                                </a>
+                                                            </td>
+                                                            <td style={{textAlign: 'right'}}>
+                                                                <a
+                                                                    href={activeModel.socialNetworks.youtube}
+                                                                    target="_blank"
+                                                                    style={{
+                                                                        textDecoration: 'none',
+                                                                        backgroundColor: activeModel.primaryColor,
+                                                                        width: 30,
+                                                                        height: 30,
+                                                                        display: 'block',
+                                                                        borderRadius: 4,
+                                                                        padding: 3,
+                                                                    }}
+                                                                    title="YouTube"
+                                                                >
+                                                                    <img src={icons.youtube} style={{width: 30}} alt="youtube"/>
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+                                            )}
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                )
+            }
         </div>
     );
 }

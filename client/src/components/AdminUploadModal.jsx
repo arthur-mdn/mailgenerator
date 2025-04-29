@@ -8,7 +8,7 @@ export default function AdminUploadModal({ modelKey }) {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
-    const [setByDefault, setSetByDefault] = useState(false);
+    const [setByDefault, setSetByDefault] = useState(true);
 
     const API_URL = import.meta.env.VITE_API_URL;
 
