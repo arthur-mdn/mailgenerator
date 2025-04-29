@@ -13,7 +13,7 @@ export const edissyum = {
         linkedin: 'https://linkedin.com/company/edissyum-consulting/',
         youtube: 'https://youtube.com/channel/UCQh4DnAakzDXuMXtMK2BTpQ/',
     },
-    phone: '+33 4 90 65 65 86',
+    phone: '+33 4 90 40 91 86',
     logo: { src: icons.edissyum, width: 200, height: 32 },
     additionalContent: true,
 };

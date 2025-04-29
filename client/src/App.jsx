@@ -348,7 +348,7 @@ function App() {
                                     required
                                     value={phone}
                                     onChange={(e) => setPhone(e.target.value)}
-                                    placeholder="+33 4 90 65 65 86"
+                                    placeholder="+33 4 90 40 91 86"
                                     maxLength={20}
                                 />
                             </label>
@@ -472,7 +472,7 @@ function App() {
 
                                     <ExportViaCopy handleCopy={handleCopy}/>
                                     <br/>
-                                    <p><strong>Ancienne version Outlook :</strong> (ZIP à glisser dans le dossier Signatures)</p>
+                                    <p><strong>Ancienne version Outlook :</strong> (Contenu du dossier ZIP à glisser dans le dossier Signatures)</p>
                                     <div style={{display: 'flex', flexDirection: 'column', gap: '0.5rem', backgroundColor: '#f0f0f0', padding: '10px 15px', borderRadius: '5px'}} className={"outlook_steps"}
                                          onClick={() => setShowOutlookOldSteps(!showOutlookOldSteps)}>
                                         <div style={{display: 'flex', alignItems: 'center', cursor: 'pointer', gap: '0.5rem'}}>
@@ -486,7 +486,7 @@ function App() {
                                                     <li>Téléchargez la signature au format ZIP.</li>
                                                     <li>Décompressez le dossier ZIP.</li>
                                                     <li>Ouvrez "C:\Users\VotreNom\AppData\Roaming\Microsoft\Signatures"</li>
-                                                    <li>Glissez le dossier décompressé dans le dossier Signatures.</li>
+                                                    <li>Glissez le contenu du dossier décompressé dans le dossier Signatures.</li>
                                                     <li>Ouvrez Outlook et allez dans "Fichier" &gt; "Options" &gt; "Mail" &gt; "Signatures".</li>
                                                     <li>Choisissez la signature que vous venez d'ajouter.</li>
                                                 </ol>
@@ -502,7 +502,7 @@ function App() {
                                             firstname: firstName || 'Arthur',
                                             lastname: lastName || 'Mondon',
                                             role: role || 'Pôle expertise et développement',
-                                            phone: phone || '+33 4 90 65 65 86',
+                                            phone: phone || '+33 4 90 40 91 86',
                                             mobile: mobile || ''
                                         })}
                                     />
