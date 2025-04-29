@@ -7,3 +7,4 @@
 .env
 
 docker-compose.override.yml
+server/data/modelsAuth.json

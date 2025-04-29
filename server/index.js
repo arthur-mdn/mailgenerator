@@ -1,7 +1,6 @@
-const dotenv = require('dotenv');
 const express = require('express');
+const dotenv = require('dotenv');
 const cors = require('cors');
-const bodyParser = require('body-parser');
 const multer = require('multer');
 const fs = require('fs');
 const path = require('path');
@@ -13,29 +12,24 @@ const app = express();
 const port = process.env.SERVER_PORT || 3001;
 const uploadFolder = path.join(__dirname, 'uploads');
 const dataFile = path.join(__dirname, 'data', 'additionalContents.json');
+const authFile = path.join(__dirname, 'data', 'modelsAuth.json');
 
-// Middleware
-app.use(cors(
-    {
-        origin: process.env.CLIENT_URL || 'http://localhost:5173',
-        credentials: true,
-        methods: ['GET', 'POST', 'PUT', 'OPTIONS'],
-        allowedHeaders: ['Content-Type', 'Authorization']
-    }
-));
-app.use(bodyParser.json());
+app.use(cors({
+    origin: process.env.CLIENT_URL || 'http://localhost:5173',
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'OPTIONS', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+}));
+app.use(express.json());
 app.use(express.static(uploadFolder));
 
-// Créer le dossier uploads et data s'ils n'existent pas
 if (!fs.existsSync(uploadFolder)) fs.mkdirSync(uploadFolder);
 if (!fs.existsSync(path.dirname(dataFile))) fs.mkdirSync(path.dirname(dataFile));
 if (!fs.existsSync(dataFile)) fs.writeFileSync(dataFile, JSON.stringify([]));
+if (!fs.existsSync(authFile)) fs.writeFileSync(authFile, JSON.stringify({}));
 
-// Configurer Multer pour l'upload
 const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, uploadFolder);
-    },
+    destination: (req, file, cb) => cb(null, uploadFolder),
     filename: (req, file, cb) => {
         const ext = path.extname(file.originalname);
         const filename = `${Math.random().toString(36).substring(2, 15)}${ext}`;
@@ -43,15 +37,32 @@ const storage = multer.diskStorage({
     }
 });
 
-// seve uploads folder
-app.use('/uploads', express.static(uploadFolder));
-
 const upload = multer({ storage });
 
-// GET route: retourner le JSON
-app.get('/additional_content', (req, res) => {
+app.use('/uploads', express.static(uploadFolder));
+
+const writeData = (file, data) => {
+    return new Promise((resolve, reject) => {
+        fs.writeFile(file, JSON.stringify(data, null, 2), (err) => {
+            if (err) return reject(err);
+            resolve();
+        });
+    });
+};
+
+app.get('/additional_content/:model', (req, res) => {
     const contents = JSON.parse(fs.readFileSync(dataFile));
-    res.json(contents);
+    const { model } = req.params;
+    const modelFiltered = model.replace(/-/g, '_');
+    const filteredContents = contents.filter(item => item.model === modelFiltered.toLowerCase());
+    if (filteredContents.length === 0) return res.status(404).json({ error: 'Aucun contenu trouvé pour ce modèle' });
+    const defaultContent = filteredContents.find(item => item.isDefault);
+    if (defaultContent) {
+        filteredContents.forEach(item => {
+            item.isDefault = item.filename === defaultContent.filename;
+        });
+    }
+    res.json(filteredContents);
 });
 
 app.get('/b64/:id', (req, res) => {
@@ -65,41 +76,129 @@ app.get('/b64/:id', (req, res) => {
     res.send(base64);
 });
 
-// POST route: uploader une image avec titre
-app.post('/upload_image', upload.single('image'), (req, res) => {
-    const { title } = req.body;
+app.post('/upload_image', (req, res) => {
+    upload.single('image')(req, res, async (err) => {
+        if (err) {
+            console.error('Erreur Multer:', err);
+            return res.status(500).json({ error: 'Erreur lors de l\'upload.' });
+        }
 
-    if (!req.file || !title) {
-        return res.status(400).json({ error: 'Image et titre requis' });
+        try {
+            const { title, model, password, setByDefault } = req.body;
+
+            if (!req.file || !title || !model || !password) {
+                return res.status(400).json({ error: 'Image, titre, modèle et mot de passe requis' });
+            }
+
+            const modelsAuth = JSON.parse(fs.readFileSync(authFile));
+            if (!modelsAuth[model] || modelsAuth[model].password !== password) {
+                return res.status(403).json({ error: 'Mot de passe incorrect ou modèle inconnu' });
+            }
+
+            const contents = JSON.parse(fs.readFileSync(dataFile));
+
+            const isDefault = contents.filter(c => c.model === model).length === 0 || setByDefault === 'true';
+
+            const newImage = {
+                id: uuidv4(),
+                title,
+                filename: req.file.filename,
+                originalname: req.file.originalname,
+                url: `uploads/${req.file.filename}`,
+                model,
+                isDefault,
+            };
+
+            contents.push(newImage);
+
+            contents.forEach(item => {
+                if (item.model === model) {
+                    item.isDefault = item.filename === newImage.filename;
+                }
+            });
+
+            await writeData(dataFile, contents);
+
+            const modelContents = contents.filter(item => item.model === model);
+
+            return res.status(200).json({ message: 'Image téléversée avec succès', modelContents });
+
+        } catch (e) {
+            console.error('Erreur serveur:', e);
+            if (!res.headersSent) {
+                res.status(500).json({ error: 'Erreur interne serveur.' });
+            }
+        }
+    });
+});
+
+app.post('/set_default/:id', upload.none(), async (req, res) => {
+    const {model, password} = req.body;
+    const {id} = req.params;
+
+    if (!id) return res.status(400).json({error: 'ID requis'});
+    if (!model) return res.status(400).json({error: 'Modèle requis'});
+    if (!password) return res.status(400).json({error: 'Mot de passe requis'});
+
+    const modelsAuth = JSON.parse(fs.readFileSync(authFile));
+    if (!modelsAuth[model] || modelsAuth[model].password !== password) {
+        return res.status(403).json({error: 'Mot de passe incorrect ou modèle inconnu'});
     }
 
     const contents = JSON.parse(fs.readFileSync(dataFile));
+    const content = contents.find(item => item.id === id);
+    if (!content) return res.status(404).json({error: 'Contenu non trouvé'});
 
-    const newImage = {
-        id: uuidv4(),
-        title: title,
-        filename: req.file.filename,
-        originalname: req.file.originalname,
-        url: `/uploads/${req.file.filename}`,
-        isDefault: contents.length === 0
-    };
+    contents.forEach(item => {
+        if (item.model === model) {
+            item.isDefault = item.id === id;
+        }
+    });
 
-    contents.push(newImage);
-    fs.writeFileSync(dataFile, JSON.stringify(contents, null, 2));
+    await writeData(dataFile, contents);
 
-    res.status(200).json(newImage);
+    let modelContents = contents.filter(item => item.model === model);
+
+    res.status(200).json({message: 'Contenu mis à jour avec succès', modelContents});
 });
 
-// PUT route: définir l'image par défaut
-app.put('/set_default_image', (req, res) => {
-    const { filename } = req.body;
-    if (!filename) return res.status(400).json({ error: 'filename requis' });
+app.delete('/:id', async (req, res) => {
+    const { id } = req.params;
+    const { model, password } = req.body;
+
+    if (!id) return res.status(400).json({ error: 'ID requis' });
+    if (!model) return res.status(400).json({ error: 'Modèle requis' });
+    if (!password) return res.status(400).json({ error: 'Mot de passe requis' });
+
+    const modelsAuth = JSON.parse(fs.readFileSync(authFile));
+    if (!modelsAuth[model] || modelsAuth[model].password !== password) {
+        return res.status(403).json({ error: 'Mot de passe incorrect ou modèle inconnu' });
+    }
 
     const contents = JSON.parse(fs.readFileSync(dataFile));
-    contents.forEach(item => item.isDefault = item.filename === filename);
+    const contentIndex = contents.findIndex(item => item.id === id);
+    if (contentIndex === -1) return res.status(404).json({ error: 'Contenu non trouvé' });
 
-    fs.writeFileSync(dataFile, JSON.stringify(contents, null, 2));
-    res.status(200).json({ message: 'Image par défaut mise à jour' });
+    const content = contents[contentIndex];
+    contents.splice(contentIndex, 1);
+
+    if (content.isDefault) {
+        contents.forEach(item => {
+            if (item.model === model) {
+                item.isDefault = false;
+            }
+        });
+
+        const newDefault = contents.find(item => item.model === model);
+        if (newDefault) {
+            newDefault.isDefault = true;
+        }
+    }
+
+    await writeData(dataFile, contents);
+
+    const modelContents = contents.filter(item => item.model === model);
+    res.status(200).json({ message: 'Contenu supprimé avec succès', modelContents });
 });
 
 app.listen(port, () => {

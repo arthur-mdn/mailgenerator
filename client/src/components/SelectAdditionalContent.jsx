@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-export default function SelectAdditionalContent({ onSelect }) {
+export default function SelectAdditionalContent({ onSelect, model }) {
     const [additionalContents, setAdditionalContents] = useState([]);
     const [selectedId, setSelectedId] = useState(null);
     const [error, setError] = useState(null);
@@ -8,8 +8,13 @@ export default function SelectAdditionalContent({ onSelect }) {
     useEffect(() => {
         const fetchAdditionalContents = async () => {
             try {
-                const response = await fetch(`${import.meta.env.VITE_API_URL}/additional_content`);
+                const modelFiltered = model.replace(/-/g, '_');
+
+                const response = await fetch(`${import.meta.env.VITE_API_URL}/additional_content/${modelFiltered.toLowerCase()}`);
                 const data = await response.json();
+                if (!Array.isArray(data)) {
+                    throw new Error('Invalid data format');
+                }
                 setAdditionalContents(data);
 
                 const defaultContent = data.find(item => item.isDefault);

@@ -295,7 +295,7 @@ function App() {
                                 {showAdditionalContent && (
                                     <>
 
-                                        <SelectAdditionalContent onSelect={setBase64}/>
+                                        <SelectAdditionalContent onSelect={setBase64} model={activeModel.name}/>
                                     </>
                                 )}
                             </div>
