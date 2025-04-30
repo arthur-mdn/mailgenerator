@@ -794,58 +794,75 @@ function App() {
                                                                     <tbody>
                                                                     <tr>
                                                                         <td style={{textAlign: 'right'}}>
-                                                                            <a
-                                                                                href={activeModel.socialNetworks.facebook}
-                                                                                target="_blank"
-                                                                                style={{
-                                                                                    textDecoration: 'none',
-                                                                                    backgroundColor: activeModel.primaryColor,
-                                                                                    width: 30,
-                                                                                    height: 30,
-                                                                                    display: 'block',
-                                                                                    borderRadius: 4,
-                                                                                    padding: 3,
-                                                                                }}
-                                                                                title="Facebook"
-                                                                            >
-                                                                                <img src={icons.facebook} width={30} height={30} alt="facebook"/>
-                                                                            </a>
+                                                                            <table cellPadding="0" cellSpacing="0" style={{width: 30,
+                                                                                height: 30, verticalAlign: 'middle',backgroundColor: activeModel.primaryColor,borderRadius: 4}}>
+                                                                                <tbody>
+                                                                                <tr>
+                                                                                    <td>
+                                                                                        <a
+                                                                                            href={activeModel.socialNetworks.facebook}
+                                                                                            target="_blank"
+                                                                                            style={{
+                                                                                                textDecoration: 'none',
+                                                                                                padding: 3,
+                                                                                            }}
+                                                                                            title="Facebook"
+                                                                                        >
+                                                                                            <img src={icons.facebook} style={{paddingTop:'3px'}} width={30} height={30} alt="facebook"/>
+                                                                                        </a>
+                                                                                    </td>
+                                                                                </tr>
+                                                                                </tbody>
+                                                                            </table>
                                                                         </td>
                                                                         <td style={{textAlign: 'right'}}>
-                                                                            <a
-                                                                                href={activeModel.socialNetworks.linkedin}
-                                                                                target="_blank"
-                                                                                style={{
-                                                                                    textDecoration: 'none',
-                                                                                    backgroundColor: activeModel.primaryColor,
-                                                                                    width: 30,
-                                                                                    height: 30,
-                                                                                    display: 'block',
-                                                                                    borderRadius: 4,
-                                                                                    padding: 3,
-                                                                                }}
-                                                                                title="LinkedIn"
-                                                                            >
-                                                                                <img src={icons.linkedin} width={30} height={30} alt="linkedin"/>
-                                                                            </a>
+
+                                                                            <table cellPadding="0" cellSpacing="0" style={{
+                                                                                width: 30,
+                                                                                height: 30, verticalAlign: 'middle', backgroundColor: activeModel.primaryColor, borderRadius: 4
+                                                                            }}>
+                                                                                <tbody>
+                                                                                <tr>
+                                                                                    <td>
+                                                                                        <a
+                                                                                            href={activeModel.socialNetworks.linkedin}
+                                                                                            target="_blank"
+                                                                                            style={{
+                                                                                                textDecoration: 'none',
+                                                                                                padding: 3,
+                                                                                            }}
+                                                                                            title="linkedin"
+                                                                                        >
+                                                                                            <img src={icons.linkedin} style={{paddingTop: '3px'}} width={30} height={30} alt="linkedin"/>
+                                                                                        </a>
+                                                                                    </td>
+                                                                                </tr>
+                                                                                </tbody>
+                                                                            </table>
                                                                         </td>
                                                                         <td style={{textAlign: 'right'}}>
-                                                                            <a
-                                                                                href={activeModel.socialNetworks.youtube}
-                                                                                target="_blank"
-                                                                                style={{
-                                                                                    textDecoration: 'none',
-                                                                                    backgroundColor: activeModel.primaryColor,
-                                                                                    width: 30,
-                                                                                    height: 30,
-                                                                                    display: 'block',
-                                                                                    borderRadius: 4,
-                                                                                    padding: 3,
-                                                                                }}
-                                                                                title="YouTube"
-                                                                            >
-                                                                                <img src={icons.youtube} width={30} height={30} alt="youtube"/>
-                                                                            </a>
+                                                                            <table cellPadding="0" cellSpacing="0" style={{
+                                                                                width: 30,
+                                                                                height: 30, verticalAlign: 'middle', backgroundColor: activeModel.primaryColor, borderRadius: 4
+                                                                            }}>
+                                                                                <tbody>
+                                                                                <tr>
+                                                                                    <td>
+                                                                                        <a
+                                                                                            href={activeModel.socialNetworks.youtube}
+                                                                                            target="_blank"
+                                                                                            style={{
+                                                                                                textDecoration: 'none',
+                                                                                                padding: 3,
+                                                                                            }}
+                                                                                            title="youtube"
+                                                                                        >
+                                                                                            <img src={icons.youtube} style={{paddingTop: '3px'}} width={30} height={30} alt="youtube"/>
+                                                                                        </a>
+                                                                                    </td>
+                                                                                </tr>
+                                                                                </tbody>
+                                                                            </table>
                                                                         </td>
                                                                     </tr>
                                                                     </tbody>
