@@ -194,84 +194,6 @@ function ExportViaCustom({signatureRef}){
     )
 }
 
-const generateFullHTMLWithEmbeddedImages = ({ html, images }) => {
-    const escapeRegExp = (string) => string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-
-    images.forEach((img) => {
-        html = html.replace(
-            new RegExp(escapeRegExp(img.base64), 'g'),
-            img.base64
-        );
-    });
-
-    return `<!DOCTYPE html>
-<html lang="fr">
-<head>
-  <meta charset="UTF-8">
-  <meta name="color-scheme" content="light dark">
-  <title>Signature</title>
-</head>
-<body style="margin:0; padding:0;">
-  ${html}
-</body>
-</html>`;
-};
-
-function ExportViaOutlookInlineHTML({ signatureRef, additionalContent, getFormData }) {
-    const handleDownload = () => {
-        const { firstname, lastname } = getFormData();
-
-        const email = prompt('Veuillez entrer votre adresse e-mail (ex: utilisateur@exemple.com)');
-        if (!email) {
-            alert('Adresse e-mail requise pour générer le fichier HTML.');
-            return;
-        }
-
-        const htmlContent = signatureRef.current.innerHTML;
-
-        const imagesToInclude = [
-            { base64: icons.edissyum, name: 'logo.png' },
-            { base64: icons.facebook, name: 'facebook.png' },
-            { base64: icons.linkedin, name: 'linkedin.png' },
-            { base64: icons.youtube, name: 'youtube.png' }
-        ];
-
-        if (additionalContent && additionalContent.includes('base64')) {
-            imagesToInclude.push({ base64: additionalContent, name: 'additional.png' });
-        }
-
-        const fullHTML = generateFullHTMLWithEmbeddedImages({
-            html: htmlContent,
-            images: imagesToInclude
-        });
-
-        let pseudo = `${firstname} ${lastname}`.replace(/[^a-zA-Z0-9]/g, '_') || 'Signature';
-        const filename = `${pseudo} (${email})_OutlookBase64.html`;
-
-        const blob = new Blob([fullHTML], { type: 'text/html;charset=utf-8' });
-        saveAs(blob, filename);
-    };
-
-    return (
-        <button
-            onClick={handleDownload}
-            style={{
-                padding: '10px 20px',
-                fontSize: '16px',
-                cursor: 'pointer',
-                backgroundColor: '#00AE5E',
-                color: '#fff',
-                marginTop: '10px'
-            }}
-        >
-            <FiDownload />
-            Télécharger HTML avec images embarquées (Outlook)
-        </button>
-    );
-}
-
-
-
 function App() {
     const signatureRef = useRef(null);
     const [tab, setTab] = useState('inputs');
@@ -603,18 +525,6 @@ function App() {
                                             mobile: mobile || ''
                                         })}
                                     />
-
-                                    <ExportViaOutlookInlineHTML
-                                        signatureRef={signatureRef}
-                                        additionalContent={additionalContent}
-                                        getFormData={() => ({
-                                            firstname: firstName || 'Arthur',
-                                            lastname: lastName || 'Mondon',
-                                            role: role || 'Pôle expertise et développement',
-                                            phone: phone || '+33 4 90 40 91 86',
-                                            mobile: mobile || ''
-                                        })}
-                                        />
 
                                 </div>
                             )
