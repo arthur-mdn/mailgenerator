@@ -630,7 +630,9 @@ function App() {
                                                                         <img
                                                                             src={icons.phone}
                                                                             alt="Phone"
-                                                                            style={{width: 22, verticalAlign: 'middle'}}
+                                                                            width={22}
+                                                                            height={22}
+                                                                            style={{verticalAlign: 'middle'}}
                                                                         />
                                                                     </td>
                                                                     <td style={{textAlign: 'left', paddingTop: 3}}>
@@ -659,8 +661,10 @@ function App() {
                                                                     <tr>
                                                                         <td style={{padding: '0 0 0 25px', width: 25}}>
                                                                             <img
+                                                                                width={22}
+                                                                                height={22}
                                                                                 src={icons.tel}
-                                                                                style={{width: 22, verticalAlign: 'middle'}}
+                                                                                style={{verticalAlign: 'middle'}}
                                                                                 alt="tel"
                                                                             />
                                                                         </td>
@@ -699,7 +703,9 @@ function App() {
                                                                 <img
                                                                     src={`${additionalContent.includes('base64') ? additionalContent : `data:image/png;base64,${additionalContent}`}`}
                                                                     alt="Signature Arthur Mondon"
-                                                                    style={{width: '100%', height: '100%', objectFit: 'cover', border: 0, verticalAlign: 'middle', borderRadius: 10}}/>
+                                                                    width={320}
+                                                                    height={180}
+                                                                    style={{objectFit: 'cover', border: 0, verticalAlign: 'middle', borderRadius: 10}}/>
                                                             </td>
                                                         </tr>
                                                         </tbody>
@@ -731,7 +737,7 @@ function App() {
                                                             <a href={activeModel.website} target="_blank">
                                                                 <img
                                                                     src={activeModel.logo.src}
-                                                                    style={{width: activeModel.logo.width, height: activeModel.logo.height, verticalAlign: 'middle', display:'block'}}
+                                                                    style={{verticalAlign: 'middle', display:'block'}}
                                                                     width={activeModel.logo.width}
                                                                     height={activeModel.logo.height}
                                                                     alt={activeModel.name}
@@ -800,7 +806,7 @@ function App() {
                                                                                 }}
                                                                                 title="Facebook"
                                                                             >
-                                                                                <img src={icons.facebook} style={{width: 30}} alt="facebook"/>
+                                                                                <img src={icons.facebook} width={30} height={30} alt="facebook"/>
                                                                             </a>
                                                                         </td>
                                                                         <td style={{textAlign: 'right'}}>
@@ -818,7 +824,7 @@ function App() {
                                                                                 }}
                                                                                 title="LinkedIn"
                                                                             >
-                                                                                <img src={icons.linkedin} style={{width: 30}} alt="linkedin"/>
+                                                                                <img src={icons.linkedin} width={30} height={30} alt="linkedin"/>
                                                                             </a>
                                                                         </td>
                                                                         <td style={{textAlign: 'right'}}>
@@ -836,7 +842,7 @@ function App() {
                                                                                 }}
                                                                                 title="YouTube"
                                                                             >
-                                                                                <img src={icons.youtube} style={{width: 30}} alt="youtube"/>
+                                                                                <img src={icons.youtube} width={30} height={30} alt="youtube"/>
                                                                             </a>
                                                                         </td>
                                                                     </tr>
