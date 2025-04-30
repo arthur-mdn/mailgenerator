@@ -572,7 +572,7 @@ function App() {
                                         <tbody>
                                         <tr>
                                             <td style={{verticalAlign: 'top'}}>
-                                                <table cellPadding="0" cellSpacing="0" style={{width: '100%'}}>
+                                                <table cellPadding="0" cellSpacing="0" width={showAdditionalContent ? 350 : width}>
                                                     <tbody>
                                                     <tr>
                                                         <td style={{height: 0}}>
