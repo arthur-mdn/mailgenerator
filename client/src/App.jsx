@@ -744,21 +744,24 @@ function App() {
                                                                 />
                                                             </a>
                                                         </td>
-                                                        <td style={(!showSocialNetworks) ? {paddingRight: 15} : {paddingRight: 10}} width={"100%"}>
-                                                            <table style={{width: '100%'}}>
+                                                        <td style={(!showSocialNetworks) ? {paddingRight: 15, border:0} : {paddingRight: 10, border:0}} width={"100%"}>
+                                                            <table style={{width: '100%', border:0}} bgcolor={activeModel.secondaryColor}>
                                                                 <tbody>
                                                                 <tr>
-                                                                    <td style={{textAlign: 'right', padding: 0}}>
+                                                                    <td style={{textAlign: 'right', padding: 0, border:0}}>
                                                                         <a
                                                                             href={activeModel.website}
                                                                             target="_blank"
                                                                             style={{
                                                                                 color: activeModel.thirdColor,
+                                                                                display:'block',
                                                                                 textDecoration: 'none',
                                                                                 fontSize: 14,
                                                                                 lineHeight: '14px',
                                                                                 fontFamily: 'Arial, sans-serif',
                                                                                 verticalAlign: 'bottom',
+                                                                                border:0,
+                                                                                backgroundColor: activeModel.secondaryColor,
                                                                             }}
                                                                         >
                                                                             {activeModel.website}
