@@ -733,7 +733,7 @@ function App() {
                                                 >
                                                     <tbody>
                                                     <tr style={{verticalAlign: 'middle'}}>
-                                                        <td style={{textAlign: 'left', width:'200px', verticalAlign: 'middle'}} width={200}>
+                                                        <td style={{textAlign: 'left', width:'200px', verticalAlign: 'middle', paddingLeft:'15px'}} width={200}>
                                                             <a href={activeModel.website} target="_blank">
                                                                 <img
                                                                     src={activeModel.logo.src}
