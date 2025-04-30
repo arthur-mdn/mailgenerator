@@ -728,11 +728,12 @@ function App() {
                                                         width: '100%',
                                                         height: '100%',
                                                         borderRadius: 10,
+                                                        tableLayout: 'fixed',
                                                     }}
                                                 >
                                                     <tbody>
                                                     <tr style={{verticalAlign: 'middle'}}>
-                                                        <td style={{textAlign: 'left', paddingLeft: 15,}}>
+                                                        <td style={{textAlign: 'left', width:'200px', verticalAlign: 'middle'}} width={200}>
                                                             <a href={activeModel.website} target="_blank">
                                                                 <img
                                                                     src={activeModel.logo.src}
@@ -743,7 +744,7 @@ function App() {
                                                                 />
                                                             </a>
                                                         </td>
-                                                        <td style={(!showSocialNetworks) ? {paddingRight: 15, border:0} : {paddingRight: 10, border:0}} width={"100%"}>
+                                                        <td style={(!showSocialNetworks) ? {paddingRight: 15, border:0} : {paddingRight: 10, border:0}} >
                                                             <table style={{width: '100%', border:0}} bgcolor={activeModel.secondaryColor}>
                                                                 <tbody>
                                                                 <tr>
@@ -789,7 +790,7 @@ function App() {
                                                             </table>
                                                         </td>
                                                         {showSocialNetworks && (
-                                                            <td style={{textAlign: 'right', verticalAlign: 'middle', paddingRight: 15}}>
+                                                            <td style={{textAlign: 'right', verticalAlign: 'middle', paddingRight: 15, width:'125px'}} width={125}>
                                                                 <table style={{width: '100%', verticalAlign: 'middle'}}>
                                                                     <tbody>
                                                                     <tr>
