@@ -89,9 +89,8 @@ function ExportViaOutlookZip({ signatureRef, additionalContent, getFormData }) {
 
         let html = signatureRef.current.innerHTML;
         html = generateFullHTML(html);
-
+       // { base64: icons.edissyum, name: 'logo.png' },
         const imagesToInclude = [
-            { base64: icons.edissyum, name: 'logo.png' },
             { base64: icons.facebook, name: 'facebook.png' },
             { base64: icons.linkedin, name: 'linkedin.png' },
             { base64: icons.youtube, name: 'youtube.png' }
