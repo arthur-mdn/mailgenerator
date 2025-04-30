@@ -90,22 +90,22 @@ function ExportViaOutlookZip({ signatureRef, additionalContent, getFormData }) {
         let html = signatureRef.current.innerHTML;
         html = generateFullHTML(html);
        // { base64: icons.edissyum, name: 'logo.png' },
-        const imagesToInclude = [
-            { base64: icons.facebook, name: 'facebook.png' },
-            { base64: icons.linkedin, name: 'linkedin.png' },
-            { base64: icons.youtube, name: 'youtube.png' }
-        ];
-
-        if (additionalContent && additionalContent.includes('base64')) {
-            imagesToInclude.push({ base64: additionalContent, name: 'additional.png' });
-        }
-
-        imagesToInclude.forEach((img) => {
-            html = html.replace(
-                new RegExp(escapeRegExp(img.base64), 'g'),
-                `${signatureName}_files/${img.name}`
-            );
-        });
+       //  const imagesToInclude = [
+       //      { base64: icons.facebook, name: 'facebook.png' },
+       //      { base64: icons.linkedin, name: 'linkedin.png' },
+       //      { base64: icons.youtube, name: 'youtube.png' }
+       //  ];
+       //
+       //  if (additionalContent && additionalContent.includes('base64')) {
+       //      imagesToInclude.push({ base64: additionalContent, name: 'additional.png' });
+       //  }
+       //
+       //  imagesToInclude.forEach((img) => {
+       //      html = html.replace(
+       //          new RegExp(escapeRegExp(img.base64), 'g'),
+       //          `${signatureName}_files/${img.name}`
+       //      );
+       //  });
 
         signatureFolder.file(`${signatureName}.htm`, html);
 
@@ -116,10 +116,10 @@ function ExportViaOutlookZip({ signatureRef, additionalContent, getFormData }) {
         signatureFolder.file(`${signatureName}.txt`, textContent);
         signatureFolder.file(`${signatureName}.rtf`, '');
 
-        for (const img of imagesToInclude) {
-            const base64Data = img.base64.split(',')[1];
-            imagesFolder.file(img.name, base64Data, { base64: true });
-        }
+        // for (const img of imagesToInclude) {
+        //     const base64Data = img.base64.split(',')[1];
+        //     imagesFolder.file(img.name, base64Data, { base64: true });
+        // }
 
         const content = await zip.generateAsync({ type: 'blob' });
         saveAs(content, `${signatureName}_Signature.zip`);
