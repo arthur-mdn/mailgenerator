@@ -727,18 +727,18 @@ function App() {
                                                 >
                                                     <tbody>
                                                     <tr style={{verticalAlign: 'middle'}}>
-                                                        <td style={{textAlign: 'left'}}>
+                                                        <td style={{textAlign: 'left', paddingLeft: 15,}}>
                                                             <a href={activeModel.website} target="_blank">
                                                                 <img
                                                                     src={activeModel.logo.src}
-                                                                    style={{width: activeModel.logo.width, height: activeModel.logo.height, paddingLeft: 15, verticalAlign: 'middle'}}
+                                                                    style={{width: activeModel.logo.width, height: activeModel.logo.height, verticalAlign: 'middle', display:'block'}}
                                                                     width={activeModel.logo.width}
                                                                     height={activeModel.logo.height}
                                                                     alt={activeModel.name}
                                                                 />
                                                             </a>
                                                         </td>
-                                                        <td style={(!showSocialNetworks) ? {paddingRight: 15, width: '100%'} : {paddingRight: 10, width: '100%'}}>
+                                                        <td style={(!showSocialNetworks) ? {paddingRight: 15} : {paddingRight: 10}} width={"100%"}>
                                                             <table style={{width: '100%'}}>
                                                                 <tbody>
                                                                 <tr>
