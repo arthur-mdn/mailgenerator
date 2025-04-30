@@ -631,7 +631,7 @@ function App() {
                                                                             alt="Phone"
                                                                             width={22}
                                                                             height={22}
-                                                                            style={{verticalAlign: 'middle'}}
+                                                                            style={{verticalAlign: 'middle', width:22, height:22,display:'block'}}
                                                                         />
                                                                     </td>
                                                                     <td style={{textAlign: 'left', paddingTop: 3}}>
@@ -663,7 +663,7 @@ function App() {
                                                                                 width={22}
                                                                                 height={22}
                                                                                 src={icons.tel}
-                                                                                style={{verticalAlign: 'middle'}}
+                                                                                style={{verticalAlign: 'middle', width:22, height:22,display:'block'}}
                                                                                 alt="tel"
                                                                             />
                                                                         </td>
