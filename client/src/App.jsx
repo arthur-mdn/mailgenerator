@@ -635,7 +635,7 @@ function App() {
                                                                             style={{verticalAlign: 'middle', width:18, height:18,display:'block'}}
                                                                         />
                                                                     </td>
-                                                                    <td style={{textAlign: 'left', paddingTop: 3}}>
+                                                                    <td style={{textAlign: 'left', paddingTop: 1}}>
                                                                         <a
                                                                             href={`tel:${phone && phone !== '' ? phone : activeModel.phone.replace(/ /g, '')}`}
                                                                             style={{
@@ -643,6 +643,7 @@ function App() {
                                                                                 textDecoration: 'none',
                                                                                 textAlign: 'left',
                                                                                 fontFamily: 'Arial, sans-serif',
+                                                                                fontSize: 12
                                                                             }}
                                                                         >
                                                                             {phone && phone !== '' ? phone : activeModel.phone}
@@ -668,13 +669,14 @@ function App() {
                                                                                 alt="tel"
                                                                             />
                                                                         </td>
-                                                                        <td style={{textAlign: 'left', paddingTop: 0}}>
+                                                                        <td style={{textAlign: 'left', paddingTop: 1}}>
                                                                             <a
                                                                                 href={`tel:${mobile.replace(/ /g, '')}`}
                                                                                 style={{
                                                                                     color: 'white',
                                                                                     textDecoration: 'none',
                                                                                     fontFamily: 'Arial, sans-serif',
+                                                                                    fontSize: 12
                                                                                 }}
                                                                             >
                                                                                 {mobile}
