@@ -14,6 +14,6 @@ export const edissyum = {
         youtube: 'https://youtube.com/channel/UCQh4DnAakzDXuMXtMK2BTpQ/',
     },
     phone: '+33 4 90 40 91 86',
-    logo: { src: icons.edissyum, width: 200, height: 32 },
+    logo: { src: icons.edissyum, width: 150, height: 24 },
     additionalContent: true,
 };

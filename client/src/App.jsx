@@ -194,6 +194,7 @@ function ExportViaCustom({signatureRef}){
 }
 
 function App() {
+    const defaultWidth = 400;
     const signatureRef = useRef(null);
     const [tab, setTab] = useState('inputs');
     const [exportTab, setExportTab] = useState('thunderbird');
@@ -201,7 +202,7 @@ function App() {
     const [showOutlookNewSteps, setShowOutlookNewSteps] = useState(false);
     const [showThunderbirdSteps, setShowThunderbirdSteps] = useState(false);
 
-    const [width, setWidth] = useState(600);
+    const [width, setWidth] = useState(400);
     const [height, setHeight] = useState(235);
     const [showSocialNetworks, setShowSocialNetworks] = useState(false);
     const [showAdditionalContent, setShowAdditionalContent] = useState(false);
@@ -233,23 +234,23 @@ function App() {
 
     const updateWidth = () => {
         if (showSocialNetworks) {
-            setWidth(600);
+            setWidth(500);
             if (showAdditionalContent){
-                setWidth(700);
+                setWidth(500);
             }
         } else {
-            setWidth(450);
+            setWidth(360);
             if (showAdditionalContent){
-                setWidth(700);
+                setWidth(500);
             }
         }
     }
 
     const updateHeight = () => {
         if (mobile.trim() === '') {
-            setHeight(200);
+            setHeight(150);
         } else {
-            setHeight(235);
+            setHeight(180);
         }
     }
 
@@ -561,7 +562,7 @@ function App() {
                                         bgcolor={activeModel.primaryColor}
                                         style={{
                                             fontFamily: 'Arial, sans-serif',
-                                            fontSize: 14,
+                                            fontSize: 12,
                                             color: '#fff',
                                             backgroundColor: activeModel.primaryColor,
                                             borderRadius: 10,
@@ -579,13 +580,13 @@ function App() {
                                                             <table cellPadding="0" cellSpacing="0" style={{color: '#fff', width: '100%'}}>
                                                                 <tbody>
                                                                 <tr>
-                                                                    <td style={{padding: '20px 0 0 25px'}}>
+                                                                    <td style={{padding: '20px 0 0 20px'}}>
                                                                         <h1
                                                                             style={{
                                                                                 margin: 0,
                                                                                 fontFamily: 'Arial, sans-serif',
                                                                                 textAlign: 'left',
-                                                                                fontSize: 26,
+                                                                                fontSize: 16,
                                                                             }}
                                                                         >
                                                                             {firstName && firstName !== '' ? firstName : 'Arthur'}
@@ -595,16 +596,16 @@ function App() {
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td style={{padding: '0 0 0 25px'}}>
+                                                                    <td style={{padding: '0 0 0 20px'}}>
                                                                         <h3
                                                                             style={{
                                                                                 fontWeight: 'normal',
                                                                                 margin: 0,
-                                                                                marginTop: 8,
+                                                                                marginTop: 4,
                                                                                 fontFamily: 'Arial, sans-serif',
                                                                                 textAlign: 'left',
-                                                                                fontSize: 18,
-                                                                                lineHeight: '18px',
+                                                                                fontSize: 14,
+                                                                                lineHeight: '12px',
                                                                             }}
                                                                         >
                                                                             {role && role !== '' ? role : 'Pôle expertise et développement'}
@@ -617,7 +618,7 @@ function App() {
                                                     </tr>
                                                     <tr style={{height: 0}}>
 
-                                                        <td style={(mobile.trim() === '') ? {padding: '10px 0 20px 0'} : {padding: '10px 0 0 0'}}>
+                                                        <td style={(mobile.trim() === '') ? {padding: '10px 0 15px 0'} : {padding: '10px 0 0 0'}}>
                                                             <table
                                                                 cellPadding="0"
                                                                 cellSpacing="0"
@@ -625,13 +626,13 @@ function App() {
                                                             >
                                                                 <tbody>
                                                                 <tr>
-                                                                    <td style={{padding: '0 0 0 25px', width: 25}}>
+                                                                    <td style={{padding: '0 0 0 15px', width: 20}}>
                                                                         <img
                                                                             src={icons.phone}
                                                                             alt="Phone"
-                                                                            width={22}
-                                                                            height={22}
-                                                                            style={{verticalAlign: 'middle', width:22, height:22,display:'block'}}
+                                                                            width={18}
+                                                                            height={18}
+                                                                            style={{verticalAlign: 'middle', width:18, height:18,display:'block'}}
                                                                         />
                                                                     </td>
                                                                     <td style={{textAlign: 'left', paddingTop: 3}}>
@@ -654,16 +655,16 @@ function App() {
                                                     </tr>
                                                     {(mobile && mobile.trim() !== '') && (
                                                         <tr>
-                                                            <td style={{padding: '5px 0 20px 0'}}>
+                                                            <td style={{padding: '5px 0 0 0'}}>
                                                                 <table cellPadding="0" cellSpacing="0" style={{color: '#fff'}}>
                                                                     <tbody>
                                                                     <tr>
-                                                                        <td style={{padding: '0 0 0 25px', width: 25}}>
+                                                                        <td style={{padding: '0 0 0 15px', width: 20}}>
                                                                             <img
-                                                                                width={22}
-                                                                                height={22}
+                                                                                width={18}
+                                                                                height={18}
                                                                                 src={icons.tel}
-                                                                                style={{verticalAlign: 'middle', width:22, height:22,display:'block'}}
+                                                                                style={{verticalAlign: 'middle', width:18, height:18,display:'block'}}
                                                                                 alt="tel"
                                                                             />
                                                                         </td>
@@ -695,15 +696,15 @@ function App() {
                                             </td>
                                             {showAdditionalContent && (
                                                 <td style={{width: 0}}>
-                                                    <table style={{width: 320, height: 180, marginLeft: 'auto'}}>
+                                                    <table style={{width: 190, height: 106, marginLeft: 'auto'}}>
                                                         <tbody>
                                                         <tr>
-                                                            <td style={{width: '100%', height: '100%', padding: "25px", textAlign: 'center', overflow: 'hidden'}} valign="middle">
+                                                            <td style={{width: '100%', height: '100%', padding: "15px", textAlign: 'center', overflow: 'hidden'}} valign="middle">
                                                                 <img
                                                                     src={`${additionalContent.includes('base64') ? additionalContent : `data:image/png;base64,${additionalContent}`}`}
                                                                     alt="Signature Arthur Mondon"
-                                                                    width={320}
-                                                                    height={180}
+                                                                    width={190}
+                                                                    height={106}
                                                                     style={{objectFit: 'cover', border: 0, verticalAlign: 'middle', borderRadius: 10}}/>
                                                             </td>
                                                         </tr>
@@ -722,7 +723,7 @@ function App() {
                                                     style={{
                                                         fontFamily: 'Arial, sans-serif',
                                                         fontSize: 14,
-                                                        padding: '15px 0 15px 15px',
+                                                        padding: '10px 0 10px 10px',
                                                         color: '#000',
                                                         backgroundColor: activeModel.secondaryColor,
                                                         width: '100%',
@@ -733,7 +734,7 @@ function App() {
                                                 >
                                                     <tbody>
                                                     <tr style={{verticalAlign: 'middle'}}>
-                                                        <td style={{textAlign: 'left', width:'200px', verticalAlign: 'middle', paddingLeft:'15px'}} width={200}>
+                                                        <td style={{textAlign: 'left', width:'150px', height:'25px', verticalAlign: 'middle', paddingLeft:'12px'}} width={150}>
                                                             <a href={activeModel.website} target="_blank">
                                                                 <img
                                                                     src={activeModel.logo.src}
@@ -756,8 +757,8 @@ function App() {
                                                                                 color: activeModel.thirdColor,
                                                                                 display:'block',
                                                                                 textDecoration: 'none',
-                                                                                fontSize: 14,
-                                                                                lineHeight: '14px',
+                                                                                fontSize: 12,
+                                                                                lineHeight: '12px',
                                                                                 fontFamily: 'Arial, sans-serif',
                                                                                 verticalAlign: 'bottom',
                                                                                 border:0,
@@ -775,9 +776,10 @@ function App() {
                                                                             target="_blank"
                                                                             style={{
                                                                                 color: activeModel.thirdColor,
+                                                                                display:'block',
                                                                                 textDecoration: 'none',
-                                                                                fontSize: 14,
-                                                                                lineHeight: '14px',
+                                                                                fontSize: 12,
+                                                                                lineHeight: '12px',
                                                                                 fontFamily: 'Arial, sans-serif',
                                                                                 verticalAlign: 'top',
                                                                             }}
@@ -790,7 +792,7 @@ function App() {
                                                             </table>
                                                         </td>
                                                         {showSocialNetworks && (
-                                                            <td style={{textAlign: 'right', verticalAlign: 'middle', paddingRight: 15, width:'125px'}} width={125}>
+                                                            <td style={{textAlign: 'right', verticalAlign: 'middle', paddingRight: 10, width:'125px'}} width={125}>
                                                                 <table style={{width: '100%', verticalAlign: 'middle'}}>
                                                                     <tbody>
                                                                     <tr>
@@ -809,7 +811,7 @@ function App() {
                                                                                             }}
                                                                                             title="Facebook"
                                                                                         >
-                                                                                            <img src={icons.facebook} style={{paddingTop:'3px'}} width={30} height={30} alt="facebook"/>
+                                                                                            <img src={icons.facebook} style={{paddingTop:'2px'}} width={25} height={25} alt="facebook"/>
                                                                                         </a>
                                                                                     </td>
                                                                                 </tr>
@@ -834,7 +836,7 @@ function App() {
                                                                                             }}
                                                                                             title="linkedin"
                                                                                         >
-                                                                                            <img src={icons.linkedin} style={{paddingTop: '3px'}} width={30} height={30} alt="linkedin"/>
+                                                                                            <img src={icons.linkedin} style={{paddingTop: '2px'}} width={25} height={25} alt="linkedin"/>
                                                                                         </a>
                                                                                     </td>
                                                                                 </tr>
@@ -854,11 +856,11 @@ function App() {
                                                                                             target="_blank"
                                                                                             style={{
                                                                                                 textDecoration: 'none',
-                                                                                                padding: 3,
+                                                                                                padding: 3
                                                                                             }}
                                                                                             title="youtube"
                                                                                         >
-                                                                                            <img src={icons.youtube} style={{paddingTop: '3px'}} width={30} height={30} alt="youtube"/>
+                                                                                            <img src={icons.youtube} style={{paddingTop: '2px'}} width={25} height={25} alt="youtube"/>
                                                                                         </a>
                                                                                     </td>
                                                                                 </tr>
